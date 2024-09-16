@@ -34,9 +34,9 @@ function NavListMenu() {
   const [openNestedMenu, setopenNestedMenu] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = nestedMenuItems.map(({ title }, key) => (
-    <a href={`tujuan/${title.toLowerCase()}`} key={key}>
+    <Link to={`tujuan/${title.toLowerCase()}`} key={key}>
       <MenuItem>{title.charAt(0).toUpperCase() + title.slice(1)}</MenuItem>
-    </a>
+    </Link>
   ));
  
   return (
@@ -78,8 +78,12 @@ function NavListMenu() {
             open={openNestedMenu}
             handler={setopenNestedMenu}
           >
-          <MenuItem>Rumus</MenuItem>
-          <MenuItem>Hitung</MenuItem>
+          <Link to="/rumus">
+            <MenuItem>Rumus</MenuItem>
+          </Link>
+          <Link to="/hitung">
+            <MenuItem>Hitung</MenuItem>
+          </Link>
             <MenuHandler className="flex items-center justify-between">
               <MenuItem>
                 Tujuan
@@ -131,47 +135,43 @@ function NavListMenu() {
 function NavList() {
   return (
     <List className="mb-6 mt-4 p-0 gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:p-1">
-      <Typography
-        as="a"
-        href="/solusi"
-        variant="medium"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2">
-          Solusi
-        </ListItem>
-      </Typography>
-      <Typography
-        as="a"
-        href="/galeri"
-        variant="medium"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2">
-          Galeri
-        </ListItem>
-      </Typography>
+      <Link to="/solusi">
+        <Typography
+          variant="medium"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2">Solusi</ListItem>
+        </Typography>
+      </Link>
+      <Link to="/galeri">
+        <Typography
+          variant="medium"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2">Galeri</ListItem>
+        </Typography>
+      </Link>
       <NavListMenu />
-      <Typography
-        as="a"
-        href="/forum"
-        variant="medium"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2">Forum</ListItem>
-      </Typography>
-      <Typography
-        as="a"
-        href="/tentang"
-        variant="medium"
-        color="blue-gray"
-        className="font-medium"
-      >
-        <ListItem className="flex items-center gap-2 py-2">Tentang</ListItem>
-      </Typography>
+      <Link to="/forum">
+        <Typography
+          variant="medium"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2">Forum</ListItem>
+        </Typography>
+      </Link>
+      <Link to="/tentang">
+        <Typography
+          variant="medium"
+          color="blue-gray"
+          className="font-medium"
+        >
+          <ListItem className="flex items-center gap-2 py-2">Tentang</ListItem>
+        </Typography>
+      </Link>
     </List>
   );
 }
@@ -189,28 +189,23 @@ export function NavbarSection() {
   return (
     <Navbar shadow={false} blurred={false} fullWidth={true} className="container mx-auto pb-4 pt-6 px-16 border-b">
       <div className="w-full max-w-7xl flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="/"
-          variant="h4"
-          className="mr-4 cursor-pointer py-1.5 lg:ml-2"
-        >
-          <Link to="/">
+        <Link to="/">
+          <Typography
+            variant="h4"
+            className="mr-4 cursor-pointer py-1.5 lg:ml-2"
+          >
             0Material
-          </Link>
-        </Typography>
+          </Typography>
+        </Link>
         <div className="hidden lg:block">
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Typography
-            as="a"
-            href="/login"
-          >
-            <Link to="/login">
-            <Button size="md">Bergabung</Button>
+          <Link to="/login">
+            <Button size="md">
+                Bergabung
+            </Button>
           </Link>
-          </Typography>
         </div>
         <IconButton
           variant="text"
@@ -227,14 +222,11 @@ export function NavbarSection() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Typography
-            as="a"
-            href="/login"
-          >
-            <Link to="/login">
-              <Button size="md">Bergabung</Button>
-            </Link>
-          </Typography>
+          <Link to="/login">
+            <Button size="md">
+                Bergabung
+            </Button>
+          </Link>
         </div>
       </Collapse>
     </Navbar>

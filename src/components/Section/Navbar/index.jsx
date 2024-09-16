@@ -129,7 +129,7 @@ function NavListMenu() {
  
 function NavList() {
   return (
-    <List className="mb-6 mt-4 p-0 lg:mb-0 lg:mt-0 lg:flex-row lg:p-1">
+    <List className="mb-6 mt-4 p-0 gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:p-1">
       <Typography
         as="a"
         href="/solusi"
@@ -137,7 +137,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
+        <ListItem className="flex items-center gap-2 py-2">
           Solusi
         </ListItem>
       </Typography>
@@ -148,7 +148,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
+        <ListItem className="flex items-center gap-2 py-2">
           Galeri
         </ListItem>
       </Typography>
@@ -160,7 +160,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Forum</ListItem>
+        <ListItem className="flex items-center gap-2 py-2">Forum</ListItem>
       </Typography>
       <Typography
         as="a"
@@ -169,7 +169,7 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Tentang</ListItem>
+        <ListItem className="flex items-center gap-2 py-2">Tentang</ListItem>
       </Typography>
     </List>
   );
@@ -186,15 +186,15 @@ export function NavbarSection() {
   }, []);
  
   return (
-    <Navbar className="relative container mx-auto py-8 px-16 shadow-none">
-      <div className="flex items-center justify-between text-blue-gray-900">
+    <Navbar shadow={false} blurred={false} fullWidth={true} className="container mx-auto pb-4 pt-6 px-16 border-b">
+      <div className="w-full max-w-7xl flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
           href="/"
           variant="h4"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
-          NolMaterial
+          0Material
         </Typography>
         <div className="hidden lg:block">
           <NavList />

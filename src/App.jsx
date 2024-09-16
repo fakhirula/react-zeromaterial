@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Solusi from './pages/Solusi';
 import Donasi from './pages/Donasi';
+import Forum from './pages/Forum';
+import Galeri from './pages/Galeri';
 
 function App() {
   return (
@@ -15,7 +17,8 @@ function App() {
         <Route path="/tentang" element={<About />} />
         <Route path="/solusi" element={<Solusi />} />
         <Route path="/donasi" element={<Donasi />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/forum" element={<Forum />} />
+        <Route path="/galeri" element={<Galeri />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

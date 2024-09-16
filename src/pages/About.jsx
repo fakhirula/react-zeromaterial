@@ -9,7 +9,6 @@ function About() {
 
   return (
     <Layout>
-      <HeroSection />
       <TimelineSection />
       <TeamSection />
       <FaqsSection />

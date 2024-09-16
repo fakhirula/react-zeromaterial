@@ -33,7 +33,7 @@ export function DonationSection() {
   };
   
   return (
-    <section className="mx-auto py-8 lg:pb-24 lg:pt-10">
+    <section className="mx-auto py-8 lg:pb-24 lg:pt-20">
       <form action="#">
         <div className="mx-auto text-center">
           <Typography

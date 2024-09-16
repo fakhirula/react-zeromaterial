@@ -214,3 +214,76 @@ export const galleriesData = [
     size: '500x360',
   },
 ]
+
+export const testimonialsData = [
+  {
+    id: 1,
+    name: 'Ayu Lestari',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Aktivis Lingkungan',
+    quote: 'Semoga kita bisa kembali merasakan udara segar tanpa polusi, hutan-hutan yang hijau kembali rimbun, dan laut yang bersih dari sampah plastik. Mari kita bersama-sama menjaga Bumi kita untuk generasi mendatang.'
+  },
+  {
+    id: 2,
+    name: 'Bimo Adi',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Peneliti Iklim',
+    quote: 'Saya berharap suatu hari nanti, kita bisa hidup berdampingan dengan alam tanpa khawatir akan bencana alam yang disebabkan oleh perubahan iklim. Mari kita kurangi emisi karbon dan lestarikan sumber daya alam.'
+  },
+  {
+    id: 3,
+    name: 'Citra Dewi',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Penggiat Daur Ulang',
+    quote: 'Mari kita jadikan kebiasaan untuk mengurangi, menggunakan kembali, dan mendaur ulang sampah. Dengan begitu, kita bisa mengurangi timbunan sampah di bumi dan menjaga lingkungan tetap bersih.'
+  },
+  {
+    id: 4,
+    name: 'Dimas Pratama',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Petani Organik',
+    quote: 'Saya bermimpi melihat pertanian organik semakin berkembang dan menjadi pilihan utama masyarakat. Dengan pertanian organik, kita bisa menjaga kesuburan tanah dan menghasilkan pangan yang sehat dan aman.'
+  },
+  {
+    id: 5,
+    name: 'Erika Setyawati',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Seniman Lingkungan',
+    quote: 'Saya ingin melihat seni menjadi alat untuk menginspirasi masyarakat agar lebih peduli terhadap lingkungan. Melalui karya seni, kita bisa menyampaikan pesan tentang pentingnya menjaga alam.'
+  },
+  {
+    id: 6,
+    name: 'Fajar Nugraha',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Pemandu Wisata Alam',
+    quote: 'Semoga pariwisata berkelanjutan semakin populer dan memberikan manfaat bagi masyarakat sekitar serta melestarikan alam. Mari kita nikmati keindahan alam sambil tetap bertanggung jawab.'
+  },
+  {
+    id: 7,
+    name: 'Gita Rahmawati',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Mahasiswa Biologi',
+    quote: 'Saya berharap penelitian tentang lingkungan semakin berkembang dan menghasilkan solusi inovatif untuk mengatasi masalah lingkungan. Mari kita dukung para ilmuwan yang berjuang untuk masa depan bumi.'
+  },
+  {
+    id: 8,
+    name: 'Hendra Wijaya',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Tukang Kayu',
+    quote: 'Saya ingin membuat furnitur dari kayu bekas dan limbah kayu untuk mengurangi penebangan hutan. Mari kita manfaatkan sumber daya alam secara bijak.'
+  },
+  {
+    id: 9,
+    name: 'Inayah Putri',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Guru',
+    quote: 'Saya berharap anak-anak kita tumbuh menjadi generasi yang peduli lingkungan. Mari kita tanamkan kesadaran akan pentingnya menjaga alam sejak dini.'
+  },
+  {
+    id: 10,
+    name: 'Joko Supriyanto',
+    image: 'https://dummyimage.com/106x106',
+    title: 'Nelayan',
+    quote: 'Saya berharap laut kita tetap kaya akan ikan dan sumber daya laut lainnya. Mari kita bersama-sama menjaga kebersihan laut dan mengurangi penggunaan alat tangkap yang merusak.'
+  }
+];

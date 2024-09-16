@@ -18,6 +18,7 @@ import {
   XMarkIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
  
 const nestedMenuItems = [
   {
@@ -194,7 +195,9 @@ export function NavbarSection() {
           variant="h4"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
-          0Material
+          <Link to="/">
+            0Material
+          </Link>
         </Typography>
         <div className="hidden lg:block">
           <NavList />
@@ -204,7 +207,9 @@ export function NavbarSection() {
             as="a"
             href="/login"
           >
+            <Link to="/login">
             <Button size="md">Bergabung</Button>
+          </Link>
           </Typography>
         </div>
         <IconButton
@@ -222,12 +227,14 @@ export function NavbarSection() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button size="sm" fullWidth>
-            Get Started
-          </Button>
-          <Button variant="outlined" size="sm" fullWidth>
-            Log In
-          </Button>
+          <Typography
+            as="a"
+            href="/login"
+          >
+            <Link to="/login">
+              <Button size="md">Bergabung</Button>
+            </Link>
+          </Typography>
         </div>
       </Collapse>
     </Navbar>

@@ -11,10 +11,11 @@ import { HomeIcon, BellIcon, CurrencyDollarIcon } from "@heroicons/react/24/soli
  
 export function TimelineSection() {
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto flex flex-wrap">
-        <div className="flex flex-row-reverse gap-10 w-full">
-          <div className="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+    <section className="py-24 mx-auto ">
+      <div className="w-full flex flex-wrap">
+        <div className="flex gap-10 w-full">
+          <img className="h-1/2 lg:w-1/2 md:w-1/2 object-cover object-center rounded-lg max-auto md:mt-0 mt-12" src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="step"/>
+          <div className="lg:w-2/5 md:w-1/2 md:py-6">
             <div className="flex relative pb-12">
               <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
                 <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
@@ -86,7 +87,6 @@ export function TimelineSection() {
               </div>
             </div>
           </div>
-          <img className="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src="https://dummyimage.com/1200x500" alt="step"/>
         </div>
       </div>
     </section>

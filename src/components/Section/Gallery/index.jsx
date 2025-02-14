@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import { galleriesData } from "../../../utils/constants";
 
-export function GalerySection() {
+export default function GallerySection() {
   return(
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
@@ -40,5 +40,3 @@ export function GalerySection() {
     </section>
   );
 }
-
-export default GalerySection();

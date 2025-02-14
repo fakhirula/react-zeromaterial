@@ -19,7 +19,7 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
- 
+
 const nestedMenuItems = [
   {
     title: "Bisnis",
@@ -28,7 +28,7 @@ const nestedMenuItems = [
     title: "Individu",
   },
 ];
- 
+
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [openNestedMenu, setopenNestedMenu] = React.useState(false);
@@ -38,7 +38,7 @@ function NavListMenu() {
       <MenuItem>{title.charAt(0).toUpperCase() + title.slice(1)}</MenuItem>
     </Link>
   ));
- 
+
   return (
     <React.Fragment>
       <Menu
@@ -78,12 +78,12 @@ function NavListMenu() {
             open={openNestedMenu}
             handler={setopenNestedMenu}
           >
-          <Link to="/rumus">
-            <MenuItem>Rumus</MenuItem>
-          </Link>
-          <Link to="/hitung">
-            <MenuItem>Hitung</MenuItem>
-          </Link>
+            <Link to="/rumus">
+              <MenuItem>Rumus</MenuItem>
+            </Link>
+            <Link to="/hitung">
+              <MenuItem>Hitung</MenuItem>
+            </Link>
             <MenuHandler className="flex items-center justify-between">
               <MenuItem>
                 Tujuan
@@ -125,76 +125,64 @@ function NavListMenu() {
               {renderItems}
             </MenuList>
           </Menu>
-          
         </Collapse>
       </div>
     </React.Fragment>
   );
 }
- 
+
 function NavList() {
   return (
     <List className="mb-6 mt-4 p-0 gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:p-1">
       <Link to="/solusi">
-        <Typography
-          variant="medium"
-          color="blue-gray"
-          className="font-medium"
-        >
+        <Typography variant="medium" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Solusi</ListItem>
         </Typography>
       </Link>
       <Link to="/galeri">
-        <Typography
-          variant="medium"
-          color="blue-gray"
-          className="font-medium"
-        >
+        <Typography variant="medium" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Galeri</ListItem>
         </Typography>
       </Link>
       <NavListMenu />
       <Link to="/forum">
-        <Typography
-          variant="medium"
-          color="blue-gray"
-          className="font-medium"
-        >
+        <Typography variant="medium" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Forum</ListItem>
         </Typography>
       </Link>
       <Link to="/tentang">
-        <Typography
-          variant="medium"
-          color="blue-gray"
-          className="font-medium"
-        >
+        <Typography variant="medium" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Tentang</ListItem>
         </Typography>
       </Link>
     </List>
   );
 }
- 
+
 export function NavbarSection() {
   const [openNav, setOpenNav] = React.useState(false);
- 
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false),
+      () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
- 
+
   return (
-    <Navbar shadow={false} blurred={false} fullWidth={true} className="container mx-auto pb-4 pt-6 px-16 border-b">
-      <div className="w-full max-w-7xl flex items-center justify-between text-blue-gray-900">
+    <Navbar
+      shadow={false}
+      blurred={false}
+      fullWidth={true}
+      className="container mx-auto pb-4 pt-6 px-16 border-b"
+    >
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to="/">
           <Typography
             variant="h4"
             className="mr-4 cursor-pointer py-1.5 lg:ml-2"
           >
-            0Material
+            zeromaterial.
           </Typography>
         </Link>
         <div className="hidden lg:block">
@@ -202,9 +190,7 @@ export function NavbarSection() {
         </div>
         <div className="hidden gap-2 lg:flex">
           <Link to="/login">
-            <Button size="md">
-                Bergabung
-            </Button>
+            <Button size="md">Bergabung</Button>
           </Link>
         </div>
         <IconButton
@@ -223,9 +209,7 @@ export function NavbarSection() {
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Link to="/login">
-            <Button size="md">
-                Bergabung
-            </Button>
+            <Button size="md">Bergabung</Button>
           </Link>
         </div>
       </Collapse>

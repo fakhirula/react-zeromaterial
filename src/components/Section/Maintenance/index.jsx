@@ -1,8 +1,7 @@
-import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 
-export function Maintenance() {
+export default function Maintenance() {
   return (
     <div className="h-screen px-8 mx-auto grid place-items-center text-center">
       <div>
@@ -23,5 +22,3 @@ export function Maintenance() {
     </div>
   );
 }
-
-export default Maintenance;

@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import { statsData } from "../../../utils/constants";
 
-export function StatsSection() {
+export default function StatsSection() {
   return (
     <section className="container max-w-7xl mx-auto md:py-28 py-10">
       <div className="text-center md:mb-24 mb-10">
@@ -26,5 +26,3 @@ export function StatsSection() {
     </section>
   )
 }
-
-export default StatsSection;

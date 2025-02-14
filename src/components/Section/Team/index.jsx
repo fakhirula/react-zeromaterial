@@ -5,6 +5,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { teamsData } from "../../../utils/constants";
+import PropTypes from "prop-types";
 
 function TeamCard({ img, name, title }) {
   return (
@@ -31,7 +32,7 @@ function TeamCard({ img, name, title }) {
   );
 }
 
-export function TeamSection() {
+export default function TeamSection() {
   return (
     <section className="min-h-screen py-8 px-8 lg:py-28">
     <div className="mx-auto">
@@ -69,4 +70,8 @@ export function TeamSection() {
   );
 }
 
-export default TeamSection;
+TeamCard.propTypes = {
+  img: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};

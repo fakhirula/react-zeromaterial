@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 
-export function LoginSection() {
+export default function Login() {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
 
@@ -109,5 +109,3 @@ export function LoginSection() {
     </section>
   );
 }
-
-export default LoginSection;

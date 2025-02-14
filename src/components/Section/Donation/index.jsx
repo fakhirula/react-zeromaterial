@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import numeral from 'numeral';
 import { Button, Card, CardBody, Input, Textarea, Typography } from "@material-tailwind/react";
 

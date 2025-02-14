@@ -3,6 +3,7 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import PropTypes from "prop-types";
 
 
 export function ProductListCard({
@@ -55,7 +56,7 @@ const CONTENTS = [
   },
 ];
 
-export function ProductList() {
+export default function ProductList() {
   return (
     <section className="py-10 px-8">
       <div className="mx-auto text-center mb-16">
@@ -87,4 +88,8 @@ export function ProductList() {
   );
 }
 
-export default ProductList;
+ProductListCard.propTypes = {
+  img: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+};

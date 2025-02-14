@@ -1,4 +1,5 @@
 import { Typography, Card, CardBody } from "@material-tailwind/react";
+import PropTypes from "prop-types";
 
 function ContentCard({ img, title, desc }) {
   return (
@@ -46,7 +47,7 @@ const contents = [
   },
 ];
 
-export function Blog() {
+export default function Blog() {
   return (
     <section className="container mx-auto px-8 py-10 lg:py-28">
       <Typography
@@ -74,4 +75,9 @@ export function Blog() {
   );
 }
 
-export default Blog;
+
+ContentCard.propTypes = {
+  img: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+};

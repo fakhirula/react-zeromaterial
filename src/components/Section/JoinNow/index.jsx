@@ -1,6 +1,6 @@
 import { Button, Typography } from "@material-tailwind/react";
 
-export function JoinNow() {
+export default function JoinNow() {
   return (
     <section className="!mx-auto py-8 lg:py-20">
       <div className="p-10 rounded-l-xl border border-blue-gray-100 bg-opacity-15 bg-[url('https://images.unsplash.com/photo-1631524254770-03abe3f42a0d?q=80&w=2500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] rounded-xl bg-no-repeat lg:bg-contain bg-cover bg-right">
@@ -29,4 +29,3 @@ export function JoinNow() {
     </section>
   );
 }
-export default JoinNow;

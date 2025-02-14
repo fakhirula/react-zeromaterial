@@ -72,7 +72,7 @@ function PricingCard({ title, desc, price, options }) {
   );
 }
 
-export function Pricing() {
+export default function Pricing() {
   const cards = [
     {
       title: "starter",
@@ -259,5 +259,3 @@ export function Pricing() {
     </section>
   );
 }
-
-export default Pricing;

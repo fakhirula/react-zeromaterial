@@ -1,7 +1,6 @@
-import React from "react";
 import { Card, CardBody, Typography, Avatar } from "@material-tailwind/react";
 
-export function Feature() {
+export default function Feature() {
   return (
     <section className="lg:py-28 py-10 px-8">
       <div className="container mx-auto mb-10 text-center lg:mb-20">
@@ -169,4 +168,3 @@ export function Feature() {
     </section>
   );
 }
-export default Feature;

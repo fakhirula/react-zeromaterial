@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Typography, Input, Button, Checkbox } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 
-export function RegisterSection() {
+export default function Register() {
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
 
@@ -138,5 +138,3 @@ export function RegisterSection() {
     </section>
   );
 }
-
-export default RegisterSection;

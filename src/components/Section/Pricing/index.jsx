@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Typography,
   Button,
@@ -8,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import PropTypes from "prop-types";
 
 function PricingCard({ title, desc, price, options }) {
   return (
@@ -259,3 +259,10 @@ export default function Pricing() {
     </section>
   );
 }
+
+PricingCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  options: PropTypes.string.isRequired,
+};

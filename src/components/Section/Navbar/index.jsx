@@ -139,9 +139,9 @@ function NavList() {
           <ListItem className="flex items-center gap-2 py-2">Solusi</ListItem>
         </Typography>
       </Link>
-      <Link to="/galeri">
+      <Link to="/kampanye">
         <Typography variant="medium" color="blue-gray" className="font-medium">
-          <ListItem className="flex items-center gap-2 py-2">Galeri</ListItem>
+          <ListItem className="flex items-center gap-2 py-2">Kampanye</ListItem>
         </Typography>
       </Link>
       <NavListMenu />

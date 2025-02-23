@@ -11,7 +11,7 @@ function Home() {
       <HeroSection />
       <StatsSection />
       <BrandSection />
-      <CampaignSection />
+      <CampaignSection amount={ 4 } />
       <TestimonialSection />
     </>
   );

@@ -1,8 +1,8 @@
 import { API } from "../_api";
 
-export const getComments = async () => {
+export const getDonations = async () => {
   try {
-    const { data } = await API.get("/comments")
+    const { data } = await API.get("donations")
     return data.data
   } catch (err) {
     console.log(err);

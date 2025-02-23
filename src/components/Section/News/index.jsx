@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { getArticles } from "../../../_services/article";
-import { articleStorage } from "../../../_api";
 import { formatDateString, formatThousandNumber } from "../../../_formats";
 
 export default function NewsSection() {
@@ -14,7 +12,7 @@ export default function NewsSection() {
       setLoading(true);
       setError(null);
       try {
-        const articlesData = await getArticles();
+        const articlesData = [];
         setArticles(articlesData);
       } catch (error) {
         setError("Failed to fetch data, please try again later.");
@@ -58,7 +56,7 @@ export default function NewsSection() {
                 <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                   <img
                     className="lg:h-48 md:h-36 w-full object-cover object-center"
-                    src={articleStorage + article.article_image}
+                    src={article.article_image}
                     alt={article.article_title}
                   />
                   <div className="p-6">

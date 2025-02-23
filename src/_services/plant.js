@@ -1,8 +1,8 @@
 import { API } from "../_api";
 
-export const getGalleries = async () => {
+export const getPlants = async () => {
   try {
-    const { data } = await API.get("/galleries")
+    const { data } = await API.get("plants")
     return data.data
   } catch (err) {
     console.log(err);

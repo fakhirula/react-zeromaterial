@@ -3,12 +3,13 @@ import {
   CardHeader,
   CardBody,
   Typography,
+  Button,
 } from "@material-tailwind/react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
-import { getDonationTypes } from "../../../_services/donation_type";
+import { destroyDonationTypes, getDonationTypes } from "../../../_services/donation_type";
 import { formatPageName } from "../../../_formats";
 
 const icon = {
@@ -24,24 +25,40 @@ export function DonationTypes() {
 
   const [datas, setDatas] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
 
+    try {
+      const getData = await getDonationTypes();
+      setDatas(getData);
+    } catch (err) {
+      setError("Failed to fetch data, please try again later.");
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this resource?")) {
+      setLoading(true);
       try {
-        const getData = await getDonationTypes();
-        setDatas(getData);
+        await destroyDonationTypes(id);
+        setDatas((prevData) =>
+          prevData.filter((data) => data.id !== id)
+        );
       } catch (err) {
-        setError("Failed to fetch data, please try again later.");
-        console.log(err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchData();
-  }, []);
+    }
+  };
 
   if (loading) {
     return <DataLoading />;
@@ -59,11 +76,13 @@ export function DonationTypes() {
           color="gray"
           className="capitalize mb-8 p-6"
         >
-          <Typography variant="h6" color="white">
-            {formatPageName(page)} Data
-          </Typography>
+          <Link to={`create`}>
+            <Button color="teal" className="rounded-md">
+              Save Data
+            </Button>
+          </Link>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
@@ -83,7 +102,7 @@ export function DonationTypes() {
               </tr>
             </thead>
             <tbody>
-              {datas.map(({ name, description }, key) => {
+              {datas.map(({ id, name, description }, key) => {
                 const className = `py-3 px-5 ${
                   key === datas.length - 1 ? "" : "border-b border-blue-gray-50"
                 }`;
@@ -104,13 +123,14 @@ export function DonationTypes() {
                         {description}
                       </Typography>
                     </td>
-                    <td className={className}>
-                      <Link>
+                    <td className={`${className} flex flex-row gap-2`}>
+                      <Typography as="a" href={`${page}/edit/${id}`}>
                         <PencilSquareIcon {...icon} />
-                      </Link>
-                      <Link>
+                      </Typography>
+                      <Link to={`edit/${id}`}></Link>
+                      <Typography as="button" onClick={() => handleDelete(id)}>
                         <TrashIcon {...icon} />
-                      </Link>
+                      </Typography>
                     </td>
                   </tr>
                 );

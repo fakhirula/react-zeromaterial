@@ -3,13 +3,18 @@ import {
   CardHeader,
   CardBody,
   Typography,
+  Button,
 } from "@material-tailwind/react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTestimonies } from "../../../_services/testimony";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
-import { formatDateString, formatPageName, formatTruncateText } from "../../../_formats";
+import {
+  formatDateString,
+  formatPageName,
+  formatTruncateText,
+} from "../../../_formats";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -24,22 +29,22 @@ export function Testimonies() {
 
   const [datas, setDatas] = useState([]);
 
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const getData = await getTestimonies();
+      setDatas(getData);
+    } catch (err) {
+      setError("Failed to fetch data, please try again later.");
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const getData = await getTestimonies();
-        setDatas(getData);
-      } catch (err) {
-        setError("Failed to fetch data, please try again later.");
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -59,11 +64,13 @@ export function Testimonies() {
           color="gray"
           className="capitalize mb-8 p-6"
         >
-          <Typography variant="h6" color="white">
-            {formatPageName(page)} Data
-          </Typography>
+          <Link to={`create`}>
+            <Button color="teal" className="rounded-md">
+              Save Data
+            </Button>
+          </Link>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
@@ -83,7 +90,7 @@ export function Testimonies() {
               </tr>
             </thead>
             <tbody>
-              {datas.map(({ user, quotes, created_at }, key) => {
+              {datas.map(({ id, user, quotes, created_at }, key) => {
                 const className = `py-3 px-5 ${
                   key === datas.length - 1 ? "" : "border-b border-blue-gray-50"
                 }`;
@@ -109,8 +116,8 @@ export function Testimonies() {
                         {formatDateString(created_at)}
                       </Typography>
                     </td>
-                    <td className={className}>
-                      <Link>
+                    <td className={`${className} flex flex-row gap-2`}>
+                      <Link to={`edit/${id}`}>
                         <PencilSquareIcon {...icon} />
                       </Link>
                       <Link>

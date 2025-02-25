@@ -4,6 +4,7 @@ import {
   CardBody,
   Typography,
   Avatar,
+  Button,
 } from "@material-tailwind/react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -25,22 +26,22 @@ export function Donations() {
 
   const [datas, setDatas] = useState([]);
 
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const getData = await getDonations();
+      setDatas(getData);
+    } catch (err) {
+      setError("Failed to fetch data, please try again later.");
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const getData = await getDonations();
-        setDatas(getData);
-      } catch (err) {
-        setError("Failed to fetch data, please try again later.");
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -60,11 +61,13 @@ export function Donations() {
           color="gray"
           className="capitalize mb-8 p-6"
         >
-          <Typography variant="h6" color="white">
-            {formatPageName(page)} Data
-          </Typography>
+          <Link to={`create`}>
+            <Button color="teal" className="rounded-md">
+              Save Data
+            </Button>
+          </Link>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
@@ -95,6 +98,7 @@ export function Donations() {
               {datas.map(
                 (
                   {
+                    id,
                     campaign,
                     user,
                     payment_method,
@@ -146,8 +150,8 @@ export function Donations() {
                           {status}
                         </Typography>
                       </td>
-                      <td className={className}>
-                        <Link>
+                      <td className={`${className} flex flex-row gap-2`}>
+                        <Link to={`edit/${id}`}>
                           <PencilSquareIcon {...icon} />
                         </Link>
                         <Link>

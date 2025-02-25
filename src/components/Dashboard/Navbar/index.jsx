@@ -28,7 +28,7 @@ export default function DashboardNavbar({ openSidenav, setOpenSidenav }) {
   const [fixedNavbar, setFixedNavbar] = useState(false);
 
   const { pathname } = useLocation();
-  const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const [layout, page, path] = pathname.split("/").filter((el) => el !== "");
 
   return (
     <Navbar
@@ -66,7 +66,7 @@ export default function DashboardNavbar({ openSidenav, setOpenSidenav }) {
             </Typography>
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
-            {page && formatPageName(page)}
+            {path && formatPageName(path)}
           </Typography>
         </div>
         <div className="flex items-center">
@@ -76,7 +76,7 @@ export default function DashboardNavbar({ openSidenav, setOpenSidenav }) {
           <IconButton
             variant="text"
             color="blue-gray"
-            className="grid xl:hidden"
+            className="grid lg:hidden"
             onClick={() => setOpenSidenav(!openSidenav)}
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
@@ -85,7 +85,7 @@ export default function DashboardNavbar({ openSidenav, setOpenSidenav }) {
             <Button
               variant="text"
               color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex normal-case"
+              className="hidden items-center gap-1 px-4 lg:flex normal-case"
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
               Sign In
@@ -93,7 +93,7 @@ export default function DashboardNavbar({ openSidenav, setOpenSidenav }) {
             <IconButton
               variant="text"
               color="blue-gray"
-              className="grid xl:hidden"
+              className="grid lg:hidden"
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
@@ -176,11 +176,7 @@ export default function DashboardNavbar({ openSidenav, setOpenSidenav }) {
               </MenuItem>
             </MenuList>
           </Menu>
-          <IconButton
-            variant="text"
-            color="blue-gray"
-            onClick={""}
-          >
+          <IconButton variant="text" color="blue-gray" onClick={""}>
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
           </IconButton>
         </div>

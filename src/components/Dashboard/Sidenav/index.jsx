@@ -95,7 +95,7 @@ const routes = [
 
 export default function Sidenav({ openSidenav, setOpenSidenav }) {
   const [sidenavType, setSidenavType] = useState("white");
-  const [sidenavColor, setSidenavColor] = useState("dark");
+  const [sidenavColor, setSidenavColor] = useState();
 
 
   const sidenavTypes = {
@@ -108,14 +108,14 @@ export default function Sidenav({ openSidenav, setOpenSidenav }) {
     <aside
       className={`${sidenavTypes[sidenavType]} ${
         openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100`}
+      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 lg:translate-x-0 border border-blue-gray-100`}
     >
       <div className={`relative`}>
         <div className="py-6 px-8 text-center">
           <Typography
             as="a"
             variant="h6"
-            color={sidenavType === "dark" ? "white" : "blue-gray"}
+            color={sidenavType === "black" ? "white" : "blue-gray"}
           >
             ZEROMATERIAL
           </Typography>
@@ -125,7 +125,7 @@ export default function Sidenav({ openSidenav, setOpenSidenav }) {
           color="white"
           size="sm"
           ripple={false}
-          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
+          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none lg:hidden"
           onClick={() => setOpenSidenav(!openSidenav)}
         >
           <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-blue-gray-500" />

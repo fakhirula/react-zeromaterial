@@ -9,8 +9,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
-import { formatIsActive, formatPageName } from "../../../_formats";
-import { getUsers } from "../../../_services/user";
+import { formatIsActive } from "../../../_formats";
+import { destroyUsers, getUsers } from "../../../_services/user";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -39,10 +39,24 @@ export function Users() {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this resource?")) {
+      setLoading(true);
+      try {
+        await destroyUsers(id);
+        setDatas((prevData) => prevData.filter((data) => data.id !== id));
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   if (loading) {
     return <DataLoading />;
@@ -125,12 +139,13 @@ export function Users() {
                       </Typography>
                     </td>
                     <td className={`${className} flex flex-row gap-2`}>
-                      <Link to={`edit/${id}`}>
+                      <Typography as="a" href={`${page}/edit/${id}`}>
                         <PencilSquareIcon {...icon} />
-                      </Link>
-                      <Link>
+                      </Typography>
+                      <Link to={`edit/${id}`}></Link>
+                      <Typography as="button" onClick={() => handleDelete(id)}>
                         <TrashIcon {...icon} />
-                      </Link>
+                      </Typography>
                     </td>
                   </tr>
                 );

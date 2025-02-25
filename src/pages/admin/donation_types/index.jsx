@@ -9,8 +9,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
-import { destroyDonationTypes, getDonationTypes } from "../../../_services/donation_type";
-import { formatPageName } from "../../../_formats";
+import {
+  destroyDonationTypes,
+  getDonationTypes,
+} from "../../../_services/donation_type";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -49,9 +51,7 @@ export function DonationTypes() {
       setLoading(true);
       try {
         await destroyDonationTypes(id);
-        setDatas((prevData) =>
-          prevData.filter((data) => data.id !== id)
-        );
+        setDatas((prevData) => prevData.filter((data) => data.id !== id));
       } catch (err) {
         setError(err.message);
       } finally {

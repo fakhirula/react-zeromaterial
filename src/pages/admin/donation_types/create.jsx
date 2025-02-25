@@ -1,4 +1,4 @@
-import { Button, Card, Input, Typography } from "@material-tailwind/react";
+import { Button, Card, Input } from "@material-tailwind/react";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

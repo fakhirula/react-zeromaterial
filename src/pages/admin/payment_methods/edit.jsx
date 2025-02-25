@@ -2,7 +2,10 @@ import { Button, Card, Input } from "@material-tailwind/react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { showPaymentMethods, updatePaymentMethods } from "../../../_services/payment_method";
+import {
+  showPaymentMethods,
+  updatePaymentMethods,
+} from "../../../_services/payment_method";
 import ValidationError from "../../../components/Section/ValidationError";
 
 export default function EditPaymentMethods() {
@@ -13,7 +16,6 @@ export default function EditPaymentMethods() {
 
   const [name, setName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +28,8 @@ export default function EditPaymentMethods() {
       }
     };
 
-    fetchData()
-  }, [id])
+    fetchData();
+  }, [id]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -49,7 +51,7 @@ export default function EditPaymentMethods() {
         _method: "PUT",
       });
 
-      navigate('/dashboard/payment_methods');
+      navigate("/dashboard/payment_methods");
     } catch (err) {
       setErrors(err.response?.data?.data || {});
     } finally {

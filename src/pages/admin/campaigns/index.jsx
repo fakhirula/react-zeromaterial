@@ -11,12 +11,8 @@ import { useEffect, useState } from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { campaignStorage } from "../../../_api";
-import {
-  formatIsActive,
-  formatPageName,
-  formatThousandNumber,
-} from "../../../_formats";
-import { getCampaigns } from "../../../_services/campaign";
+import { formatIsActive, formatThousandNumber } from "../../../_formats";
+import { destroyCampaigns, getCampaigns } from "../../../_services/campaign";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -49,6 +45,20 @@ export function Campaigns() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this resource?")) {
+      setLoading(true);
+      try {
+        await destroyCampaigns(id);
+        setDatas((prevData) => prevData.filter((data) => data.id !== id));
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   if (loading) {
     return <DataLoading />;
@@ -165,12 +175,16 @@ export function Campaigns() {
                         </Typography>
                       </td>
                       <td className={`${className} flex flex-row gap-2`}>
-                        <Link to={`edit/${id}`}>
+                        <Typography as="a" href={`${page}/edit/${id}`}>
                           <PencilSquareIcon {...icon} />
-                        </Link>
-                        <Link>
+                        </Typography>
+                        <Link to={`edit/${id}`}></Link>
+                        <Typography
+                          as="button"
+                          onClick={() => handleDelete(id)}
+                        >
                           <TrashIcon {...icon} />
-                        </Link>
+                        </Typography>
                       </td>
                     </tr>
                   );

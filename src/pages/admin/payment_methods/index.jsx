@@ -51,9 +51,7 @@ export function PaymentMethods() {
       setLoading(true);
       try {
         await destroyPaymentMethods(id);
-        setDatas((prevData) =>
-          prevData.filter((data) => data.id !== id)
-        );
+        setDatas((prevData) => prevData.filter((data) => data.id !== id));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -126,18 +124,11 @@ export function PaymentMethods() {
                       </Typography>
                     </td>
                     <td className={`${className} flex flex-row gap-2`}>
-                      <Typography
-                        as="a"
-                        href={`${page}/edit/${id}`}
-                      >
+                      <Typography as="a" href={`${page}/edit/${id}`}>
                         <PencilSquareIcon {...icon} />
-                      </Typography> 
-                      <Link to={`edit/${id}`}>
-                      </Link>
-                      <Typography
-                        as="button"
-                        onClick={() => handleDelete(id)}
-                      >
+                      </Typography>
+                      <Link to={`edit/${id}`}></Link>
+                      <Typography as="button" onClick={() => handleDelete(id)}>
                         <TrashIcon {...icon} />
                       </Typography>
                     </td>

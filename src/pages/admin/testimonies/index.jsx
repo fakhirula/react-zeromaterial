@@ -7,14 +7,10 @@ import {
 } from "@material-tailwind/react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getTestimonies } from "../../../_services/testimony";
+import { destroyTestimonies, getTestimonies } from "../../../_services/testimony";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
-import {
-  formatDateString,
-  formatPageName,
-  formatTruncateText,
-} from "../../../_formats";
+import { formatDateString, formatTruncateText } from "../../../_formats";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -43,10 +39,24 @@ export function Testimonies() {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this resource?")) {
+      setLoading(true);
+      try {
+        await destroyTestimonies(id);
+        setDatas((prevData) => prevData.filter((data) => data.id !== id));
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   if (loading) {
     return <DataLoading />;
@@ -117,12 +127,13 @@ export function Testimonies() {
                       </Typography>
                     </td>
                     <td className={`${className} flex flex-row gap-2`}>
-                      <Link to={`edit/${id}`}>
+                      <Typography as="a" href={`${page}/edit/${id}`}>
                         <PencilSquareIcon {...icon} />
-                      </Link>
-                      <Link>
+                      </Typography>
+                      <Link to={`edit/${id}`}></Link>
+                      <Typography as="button" onClick={() => handleDelete(id)}>
                         <TrashIcon {...icon} />
-                      </Link>
+                      </Typography>
                     </td>
                   </tr>
                 );

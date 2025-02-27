@@ -1,11 +1,11 @@
-import { Button, Card, Input } from "@material-tailwind/react";
+import { Button, Card, Input, Textarea } from "@material-tailwind/react";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { storeDonationTypes } from "../../../_services/donation_type";
 import ValidationError from "../../../components/Section/ValidationError";
 
-export default function CreateDonationTypes() {
+export default function CreateDonationType() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ export default function CreateDonationTypes() {
               {errors.name && <ValidationError message={errors.name[0]} />}
             </div>
             <div className="w-full">
-              <Input
+              <Textarea
                 size="lg"
                 label="Description"
                 variant="outlined"

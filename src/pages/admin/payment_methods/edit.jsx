@@ -8,7 +8,7 @@ import {
 } from "../../../_services/payment_method";
 import ValidationError from "../../../components/Section/ValidationError";
 
-export default function EditPaymentMethods() {
+export default function EditPaymentMethod() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

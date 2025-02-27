@@ -1,14 +1,10 @@
 import { Textarea, Button, Input, Card } from "@material-tailwind/react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { storePlants } from "../../../_services/plant";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { showPlants, updatePlants } from "../../../_services/plant";
 import ValidationError from "../../../components/Section/ValidationError";
 
-export default function CreatePlant() {
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  
+export default function EditPlant() {
   const [formData, setFormData] = useState({
     name: "",
     species: "",
@@ -19,12 +15,38 @@ export default function CreatePlant() {
     benefit: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const { id } = useParams();
+
+  const fetchData = async () => {
+    try {
+      const data = await showPlants(id);
+      setFormData({
+        name: data.name,
+        species: data.species,
+        price: data.price,
+        description: data.description,
+        growing_conditions: data.growing_conditions,
+        benefit: data.benefit,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       [name]: files ? files[0] : value,
-    }));
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -32,14 +54,46 @@ export default function CreatePlant() {
     setErrors({});
     setLoading(true);
 
-    const data = new FormData();
-    Object.keys(formData).forEach((key) => {
-      data.append(key, formData[key]);
+    const validationErrors = {};
+    const requiredFields = [
+      "name",
+      "species",
+      "price",
+      "description",
+      "growing_conditions",
+      "benefit",
+    ];
+
+    requiredFields.forEach((field) => {
+      if (!formData[field]) {
+        validationErrors[field] = [
+          `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`,
+        ];
+      }
     });
 
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
+
     try {
-      await storePlants(data);
-      navigate(-1);
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("species", formData.species);
+      payload.append("price", formData.price);
+      payload.append("description", formData.description);
+      payload.append("growing_conditions", formData.growing_conditions);
+      payload.append("benefit", formData.benefit);
+      payload.append("_method", "PUT");
+
+      if (formData.image) {
+        payload.append("image", formData.image);
+      }
+
+      await updatePlants(id, payload);
+      navigate("/dashboard/plants");
     } catch (err) {
       setErrors(err.response?.data?.data || {});
     } finally {

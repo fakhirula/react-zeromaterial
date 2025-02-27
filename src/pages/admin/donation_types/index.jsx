@@ -78,7 +78,7 @@ export function DonationTypes() {
         >
           <Link to={`create`}>
             <Button color="teal" className="rounded-md">
-              Save Data
+              Create Data
             </Button>
           </Link>
         </CardHeader>

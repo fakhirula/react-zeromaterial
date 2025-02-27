@@ -8,7 +8,7 @@ import {
 } from "../../../_services/donation_type";
 import ValidationError from "../../../components/Section/ValidationError";
 
-export default function EditDonationTypes() {
+export default function EditDonationType() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

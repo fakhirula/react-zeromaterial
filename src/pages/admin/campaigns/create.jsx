@@ -1,29 +1,54 @@
-import { Textarea, Button, Input, Card } from "@material-tailwind/react";
-import { useState } from "react";
+import { Button, Input, Card, Select, Option } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { storePlants } from "../../../_services/plant";
+import { storeCampaigns } from "../../../_services/campaign";
 import ValidationError from "../../../components/Section/ValidationError";
+import { getPlants } from "../../../_services/plant";
+import "react-datepicker/dist/react-datepicker.css";
 
-export default function CreatePlant() {
+export default function CreateCampaign() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
+
+  const [errorPlants, setErrorPlants] = useState(null);
+  const [plants, setPlants] = useState([]);
+
   const [formData, setFormData] = useState({
-    name: "",
-    species: "",
-    price: "",
-    description: "",
+    title: "",
     image: null,
-    growing_conditions: "",
-    benefit: "",
+    location: "",
+    created_by_user_id: 1,
+    plant_id: "",
+    start_date: "",
+    end_date: "",
+    target_donation: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
+  const fetchData = async () => {
+    setLoading(true);
+    setErrorPlants(null);
+
+    try {
+      const getData = await getPlants();
+      setPlants(getData);
+    } catch (err) {
+      setErrorPlants("Failed to fetch data, please try again later.");
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleChange = (value, name) => {
+    console.log(name, value);
     setFormData((prevData) => ({
       ...prevData,
-      [name]: files ? files[0] : value,
+      [name]: value,
     }));
   };
 
@@ -38,7 +63,7 @@ export default function CreatePlant() {
     });
 
     try {
-      await storePlants(data);
+      await storeCampaigns(data);
       navigate(-1);
     } catch (err) {
       setErrors(err.response?.data?.data || {});
@@ -55,33 +80,16 @@ export default function CreatePlant() {
             <div className="w-full">
               <Input
                 size="lg"
-                label="Name"
-                name="name"
+                label="Title"
+                name="title"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={formData.name}
+                value={formData.title}
                 onChange={handleChange}
-                error={!!errors.name}
+                error={!!errors.title}
               />
-              {errors.name && <ValidationError message={errors.name[0]} />}
+              {errors.title && <ValidationError message={errors.title[0]} />}
             </div>
-            <div className="w-full">
-              <Input
-                size="lg"
-                label="Species"
-                name="species"
-                variant="outlined"
-                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={formData.species}
-                onChange={handleChange}
-                error={!!errors.species}
-              />
-              {errors.species && (
-                <ValidationError message={errors.species[0]} />
-              )}
-            </div>
-          </div>
-          <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
             <div className="w-full">
               <Input
                 type="file"
@@ -97,66 +105,87 @@ export default function CreatePlant() {
             </div>
             <div className="w-full">
               <Input
+                size="lg"
+                label="Location"
+                name="location"
+                variant="outlined"
+                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                value={formData.location}
+                onChange={handleChange}
+                error={!!errors.location}
+              />
+              {errors.location && (
+                <ValidationError message={errors.location[0]} />
+              )}
+            </div>
+          </div>
+          <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
+            <div className="w-full">
+              <Input
+                type="date"
+                size="lg"
+                label="Start Date"
+                name="start_date"
+                variant="outlined"
+                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                value={formData.start_date}
+                onChange={handleChange}
+                error={!!errors.start_date}
+              />
+              {errors.start_date && (
+                <ValidationError message={errors.start_date[0]} />
+              )}
+            </div>
+            <div className="w-full">
+              <Input
+                type="date"
+                size="lg"
+                label="End Date"
+                name="end_date"
+                variant="outlined"
+                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                value={formData.end_date}
+                onChange={handleChange}
+                error={!!errors.end_date}
+              />
+              {errors.end_date && (
+                <ValidationError message={errors.end_date[0]} />
+              )}
+            </div>
+          </div>
+          <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
+            <div className="w-full">
+              <Select
+                label="Select Plant"
+                name="plant_id"
+                onChange={(value) => handleChange(value, "plant_id")}
+                error={!!errors.plant_id}
+              >
+                {plants.map((plant) => (
+                  <Option key={plant.id} value={plant.id}>
+                    {plant.name}
+                  </Option>
+                ))}
+              </Select>
+              {errors.plant_id && (
+                <ValidationError message={errors.plant_id[0]} />
+              )}
+            </div>
+            <div className="w-full">
+              <Input
                 type="number"
                 min={1}
                 size="lg"
-                label="Price"
-                name="price"
+                label="Target Donation"
+                name="target_donation"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={formData.price}
+                value={formData.targetDonation}
                 onChange={handleChange}
-                error={!!errors.price}
+                error={!!errors.target_donation}
               />
-              {errors.price && <ValidationError message={errors.price[0]} />}
-            </div>
-          </div>
-          <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-            <div className="w-full">
-              <Textarea
-                size="lg"
-                label="Description"
-                name="description"
-                variant="outlined"
-                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={formData.description}
-                onChange={handleChange}
-                error={!!errors.description}
-              />
-              {errors.description && (
-                <ValidationError message={errors.description[0]} />
-              )}
-            </div>
-          </div>
-          <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-            <div className="w-full">
-              <Textarea
-                size="lg"
-                label="Growing Conditions"
-                name="growing_conditions"
-                variant="outlined"
-                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={formData.growing_conditions}
-                onChange={handleChange}
-                error={!!errors.growing_conditions}
-              />
-              {errors.growing_conditions && (
-                <ValidationError message={errors.growing_conditions[0]} />
-              )}
-            </div>
-            <div className="w-full">
-              <Textarea
-                size="lg"
-                label="Benefit"
-                name="benefit"
-                variant="outlined"
-                className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={formData.benefit}
-                onChange={handleChange}
-                error={!!errors.benefit}
-              />
-              {errors.benefit && (
-                <ValidationError message={errors.benefit[0]} />
+              {errors.target_donation && (
+                <ValidationError message={errors.target_donation[0]} />
               )}
             </div>
           </div>

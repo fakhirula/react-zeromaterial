@@ -4,7 +4,7 @@ import { useState } from "react";
 import { storePaymentMethods } from "../../../_services/payment_method";
 import ValidationError from "../../../components/Section/ValidationError";
 
-export default function CreatePaymentMethods() {
+export default function CreatePaymentMethod() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

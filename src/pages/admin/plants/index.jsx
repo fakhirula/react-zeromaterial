@@ -78,11 +78,11 @@ export function Plants() {
         >
           <Link to={`create`}>
             <Button color="teal" className="rounded-md">
-              Save Data
+              Create Data
             </Button>
           </Link>
         </CardHeader>
-        <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
+        <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>

@@ -24,6 +24,10 @@ import EditPaymentMethod from "./pages/admin/payment_methods/edit.jsx";
 import CreateDonationType from "./pages/admin/donation_types/create.jsx";
 import EditDonationType from "./pages/admin/donation_types/edit.jsx";
 import Dashboard from "./pages/admin/index.jsx";
+import CreatePlant from "./pages/admin/plants/create.jsx";
+import CreateCampaign from "./pages/admin/campaigns/create.jsx";
+import EditCampaign from "./pages/admin/campaigns/edit.jsx";
+import EditPlant from "./pages/admin/plants/edit.jsx";
 
 export default function App() {
   return (
@@ -38,8 +42,6 @@ export default function App() {
           <Route path="donasi" element={<Donate />} />
           <Route path="forum" element={<Forum />} />
           <Route path="galeri" element={<Gallery />} />
-
-          <Route path="error" element={<Error />} />
         </Route>
 
         {/* Auth Routes */}
@@ -69,8 +71,8 @@ export default function App() {
 
           <Route path="plants">
             <Route index element={<Plants />} />
-            <Route path="create" element="" />
-            <Route path="edit/:id" element="" />
+            <Route path="create" element={<CreatePlant />} />
+            <Route path="edit/:id" element={<EditPlant />} />
           </Route>
 
           <Route path="testimonies">
@@ -84,8 +86,8 @@ export default function App() {
 
           <Route path="campaigns">
             <Route index element={<Campaigns />} />
-            <Route path="create" element="" />
-            <Route path="edit/:id" element="" />
+            <Route path="create" element={<CreateCampaign />} />
+            <Route path="edit/:id" element={<EditCampaign />} />
           </Route>
 
           <Route path="profile" element="" />

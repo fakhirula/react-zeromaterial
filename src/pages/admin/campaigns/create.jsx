@@ -44,11 +44,11 @@ export default function CreateCampaign() {
     fetchData();
   }, []);
 
-  const handleChange = (value, name) => {
-    console.log(name, value);
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: files ? files[0] : value,
     }));
   };
 
@@ -71,6 +71,9 @@ export default function CreateCampaign() {
       setLoading(false);
     }
   };
+
+  console.log(formData);
+  
 
   return (
     <section>
@@ -158,7 +161,7 @@ export default function CreateCampaign() {
               <Select
                 label="Select Plant"
                 name="plant_id"
-                onChange={(value) => handleChange(value, "plant_id")}
+                onChange={(value) => setFormData((prevData) => ({ ...prevData, plant_id: value }))}
                 error={!!errors.plant_id}
               >
                 {plants.map((plant) => (

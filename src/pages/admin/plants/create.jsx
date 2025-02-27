@@ -45,7 +45,7 @@ export default function CreatePlant() {
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   return (
     <section>

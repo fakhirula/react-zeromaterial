@@ -1,29 +1,31 @@
 import { Button, Input, Card, Select, Option } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { showCampaigns, storeCampaigns } from "../../../_services/campaign";
+import { showCampaigns, updateCampaigns } from "../../../_services/campaign";
 import ValidationError from "../../../components/Section/ValidationError";
 import { getPlants } from "../../../_services/plant";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function EditCampaign() {
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const { id } = useParams();
 
   const [errorPlants, setErrorPlants] = useState(null);
   const [plants, setPlants] = useState([]);
 
-  // State variables for each input field
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState(null);
-  const [location, setLocation] = useState("");
-  const [plantId, setPlantId] = useState(0);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [targetDonation, setTargetDonation] = useState("");
-
-  const { id } = useParams();
+  const [formData, setFormData] = useState({
+    title: "",
+    image: null,
+    location: "",
+    created_by_user_id: 1,
+    plant_id: "",
+    start_date: "",
+    end_date: "",
+    target_donation: "",
+  });
 
   const fetchData = async () => {
     setLoading(true);
@@ -32,18 +34,21 @@ export default function EditCampaign() {
     try {
       const dataCampaign = await showCampaigns(id);
       const dataPlants = await getPlants();
-      setTitle(dataCampaign.title);
-      setImage(dataCampaign.image);
-      setLocation(dataCampaign.location);
-      setPlantId(dataCampaign.plant_id);
-      setStartDate(dataCampaign.start_date);
-      setEndDate(dataCampaign.end_date);
-      setTargetDonation(dataCampaign.target_donation);
-      
+
       setPlants(dataPlants);
+      setFormData({
+        title: dataCampaign.title,
+        image: null,
+        location: dataCampaign.location,
+        created_by_user_id: 1,
+        plant_id: dataCampaign.plant_id,
+        start_date: dataCampaign.start_date,
+        end_date: dataCampaign.end_date,
+        target_donation: dataCampaign.target_donation,
+      });
     } catch (err) {
       setErrorPlants("Failed to fetch data, please try again later.");
-      console.log(err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -51,34 +56,14 @@ export default function EditCampaign() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [id]);
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  };
-
-  const handleStartDateChange = (date) => {
-    setStartDate(date);
-  };
-
-  const handleEndDateChange = (date) => {
-    setEndDate(date);
-  };
-
-  const handlePlantIdChange = (e) => {
-    setPlantId(e.target.value);
-  };
-
-  const handleTargetDonationChange = (e) => {
-    setTargetDonation(e.target.value);
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: files ? files[0] : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -86,27 +71,52 @@ export default function EditCampaign() {
     setErrors({});
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("image", image);
-    formData.append("location", location);
-    formData.append("created_by_user_id", 1);
-    formData.append("start_date", startDate);
-    formData.append("end_date", endDate);
-    formData.append("plant_id", plantId);
-    formData.append("target_donation", targetDonation);
+    const validationErrors = {};
+    const requiredFields = [
+      "title",
+      "location",
+      "plant_id",
+      "start_date",
+      "end_date",
+      "target_donation",
+    ];
+
+    requiredFields.forEach((field) => {
+      if (!formData[field]) {
+        validationErrors[field] = [
+          `${field.charAt(0).toUpperCase() + field.slice(1)} is required.`,
+        ];
+      }
+    });
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setLoading(false);
+      return;
+    }
 
     try {
-      await storeCampaigns(formData);
-      navigate(-1);
+      const payload = new FormData();
+      payload.append("title", formData.title);
+      payload.append("location", formData.location);
+      payload.append("plant_id", formData.plant_id);
+      payload.append("start_date", formData.start_date);
+      payload.append("end_date", formData.end_date);
+      payload.append("target_donation", formData.target_donation);
+      payload.append("_method", "PUT");
+
+      if (formData.image) {
+        payload.append("image", formData.image);
+      }
+
+      await updateCampaigns(id, payload);
+      navigate("/dashboard/campaigns");
     } catch (err) {
       setErrors(err.response?.data?.data || {});
     } finally {
       setLoading(false);
     }
   };
-
-  console.log(startDate);
 
   return (
     <section>
@@ -120,8 +130,8 @@ export default function EditCampaign() {
                 name="title"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={title}
-                onChange={handleTitleChange}
+                value={formData.title}
+                onChange={handleChange}
                 error={!!errors.title}
               />
               {errors.title && <ValidationError message={errors.title[0]} />}
@@ -134,7 +144,7 @@ export default function EditCampaign() {
                 name="image"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                onChange={handleImageChange}
+                onChange={handleChange}
                 error={!!errors.image}
               />
               {errors.image && <ValidationError message={errors.image[0]} />}
@@ -146,8 +156,8 @@ export default function EditCampaign() {
                 name="location"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={location}
-                onChange={handleLocationChange}
+                value={formData.location}
+                onChange={handleChange}
                 error={!!errors.location}
               />
               {errors.location && (
@@ -161,9 +171,11 @@ export default function EditCampaign() {
                 type="date"
                 size="lg"
                 label="Start Date"
+                name="start_date"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                onChange={handleStartDateChange}
+                value={formData.start_date}
+                onChange={handleChange}
                 error={!!errors.start_date}
               />
               {errors.start_date && (
@@ -175,9 +187,11 @@ export default function EditCampaign() {
                 type="date"
                 size="lg"
                 label="End Date"
+                name="end_date"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                onChange={handleEndDateChange}
+                value={formData.end_date}
+                onChange={handleChange}
                 error={!!errors.end_date}
               />
               {errors.end_date && (
@@ -189,11 +203,14 @@ export default function EditCampaign() {
             <div className="w-full">
               <Select
                 label="Plant"
-                value={plantId}
-                onChange={handlePlantIdChange}
+                name="plant_id"
+                value={formData.plant_id}
+                onChange={(value) =>
+                  setFormData((prevData) => ({ ...prevData, plant_id: value }))
+                }
               >
                 {plants.map((plant) => (
-                  <Option key={plant.id} value="1">
+                  <Option key={plant.id} value={plant.id}>
                     {plant.name}
                   </Option>
                 ))}
@@ -211,8 +228,8 @@ export default function EditCampaign() {
                 name="target_donation"
                 variant="outlined"
                 className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                value={targetDonation}
-                onChange={handleTargetDonationChange}
+                value={formData.target_donation}
+                onChange={handleChange}
                 error={!!errors.target_donation}
               />
               {errors.target_donation && (

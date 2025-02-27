@@ -5,6 +5,12 @@ import { showPlants, updatePlants } from "../../../_services/plant";
 import ValidationError from "../../../components/Section/ValidationError";
 
 export default function EditPlant() {
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const { id } = useParams();
+
   const [formData, setFormData] = useState({
     name: "",
     species: "",
@@ -14,12 +20,6 @@ export default function EditPlant() {
     growing_conditions: "",
     benefit: "",
   });
-
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
-  const { id } = useParams();
 
   const fetchData = async () => {
     try {

@@ -18,6 +18,11 @@ const formatThousandNumber = (num, format) => {
     return numFormat;
   }
 
+  if (format === "default") {
+    const numFormat = parseFloat(num.replace(/,/g, ''))
+    return numFormat;
+  }
+
   return num.toString();
 };
 

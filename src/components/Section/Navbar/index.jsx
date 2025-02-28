@@ -48,7 +48,7 @@ function NavListMenu() {
         allowHover={true}
       >
         <MenuHandler>
-          <Typography as="div" variant="medium" className="font-medium">
+          <Typography as="div" variant="paragraph" className="font-medium">
             <ListItem
               className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
               selected={isMenuOpen || isMobileMenuOpen}
@@ -135,23 +135,23 @@ function NavList() {
   return (
     <List className="mb-6 mt-4 p-0 gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:p-1">
       <Link to="/solusi">
-        <Typography variant="medium" color="blue-gray" className="font-medium">
+        <Typography variant="paragraph" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Solusi</ListItem>
         </Typography>
       </Link>
       <Link to="/kampanye">
-        <Typography variant="medium" color="blue-gray" className="font-medium">
+        <Typography variant="paragraph" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Kampanye</ListItem>
         </Typography>
       </Link>
       <NavListMenu />
       <Link to="/forum">
-        <Typography variant="medium" color="blue-gray" className="font-medium">
+        <Typography variant="paragraph" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Forum</ListItem>
         </Typography>
       </Link>
       <Link to="/tentang">
-        <Typography variant="medium" color="blue-gray" className="font-medium">
+        <Typography variant="paragraph" color="blue-gray" className="font-medium">
           <ListItem className="flex items-center gap-2 py-2">Tentang</ListItem>
         </Typography>
       </Link>
@@ -159,7 +159,7 @@ function NavList() {
   );
 }
 
-export function NavbarSection() {
+export function NavbarSection({ profile }) {
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -189,9 +189,15 @@ export function NavbarSection() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Link to="/login">
-            <Button size="md">Bergabung</Button>
-          </Link>
+          {profile ? (
+            <Link to="/dashboard/profile">
+              <Button size="md">Profile</Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button size="md">Bergabung</Button>
+            </Link>
+          )}
         </div>
         <IconButton
           variant="text"

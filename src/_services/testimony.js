@@ -42,9 +42,9 @@ export const updatedTestimonies = async (id, data) => {
 
 export const destroyTestimonies = async (id) => {
   try {
-    await API.delete(`/testimonies/${id}`);
+    await API.delete(`/testimonies/${id}`)
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.log(err)
+    throw err
   }
-};
+}

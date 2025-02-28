@@ -93,7 +93,7 @@ const routes = [
   },
 ];
 
-export default function Sidenav({ openSidenav, setOpenSidenav }) {
+export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
   const [sidenavType, setSidenavType] = useState("white");
   const [sidenavColor, setSidenavColor] = useState();
 

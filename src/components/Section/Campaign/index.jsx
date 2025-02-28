@@ -162,6 +162,6 @@ export default function CampaignSection({ amount }) {
   );
 }
 
-CampaignSection.propTypes = {
-  amount: PropTypes.string.isRequired,
-};
+// CampaignSection.propTypes = {
+//   amount: PropTypes.isRequired,
+// };

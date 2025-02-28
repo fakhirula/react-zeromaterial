@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 const formatThousandNumber = (num, format) => {
   if (format === "ENG") {
     if (num >= 1000000) {
@@ -76,6 +78,20 @@ const formatProgress = (targetDonation, collectedDonation) => {
   return Math.min(progress, 100).toFixed(2);
 };
 
+const decodeToken = (token) => {
+  try {
+    const decoded = jwtDecode(token);
+    return decoded;
+  } catch (error) {
+    console.error("Failed to decode token:", error.message);
+    return {
+      success: false,
+      message: error.message,
+      data: null,
+    };
+  }
+}
+
 export {
   formatThousandNumber,
   formatDateString,
@@ -84,4 +100,5 @@ export {
   formatPageName,
   formatDaysLeft,
   formatProgress,
+  decodeToken
 };

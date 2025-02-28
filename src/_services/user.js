@@ -42,9 +42,9 @@ export const updateUsers = async (id, data) => {
 
 export const destroyUsers = async (id) => {
   try {
-    await API.delete(`/users/${id}`);
+    await API.delete(`/users/${id}`)
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.log(err)
+    throw err
   }
-};
+}

@@ -42,9 +42,9 @@ export const updatePaymentMethods = async (id, data) => {
 
 export const destroyPaymentMethods = async (id) => {
   try {
-    await API.delete(`/payment_methods/${id}`);
+    await API.delete(`/payment_methods/${id}`)
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.log(err)
+    throw err
   }
-};
+}

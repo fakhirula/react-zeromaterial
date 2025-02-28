@@ -52,7 +52,6 @@ export default function Testimonial() {
       try {
         const testimoniesData = await getTestimonies();
         setTestimonialsData(testimoniesData);
-        console.log(testimoniesData);
       } catch (err) {
         setError("Failed to fetch data, please try again");
         console.log(err);
@@ -107,5 +106,5 @@ export default function Testimonial() {
 }
 
 TestimonialCard.propTypes = {
-  testimony: PropTypes.object.isRequired,
+  testimony: PropTypes.isRequired,
 };

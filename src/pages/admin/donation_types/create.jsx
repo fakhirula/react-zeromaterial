@@ -1,4 +1,4 @@
-import { Button, Card, Input, Textarea } from "@material-tailwind/react";
+import { Alert, Button, Card, Input, Textarea } from "@material-tailwind/react";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -7,8 +7,9 @@ import ValidationError from "../../../components/Section/ValidationError";
 
 export default function CreateDonationType() {
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState(null);
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -24,13 +25,18 @@ export default function CreateDonationType() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    setGeneralError(null);
     setLoading(true);
 
     try {
       await storeDonationTypes({ name, description });
       navigate(-1);
     } catch (err) {
-      setErrors(err.response?.data?.data || {});
+      if (err.response && err.response?.status === 403) {
+        setGeneralError("You are not authorized to perform this action!");
+      } else {
+        setErrors(err.response.data.errors || {});
+      }
     } finally {
       setLoading(false);
     }
@@ -39,6 +45,11 @@ export default function CreateDonationType() {
   return (
     <section>
       <Card className="px-8 py-8 mt-12 mb-8 mx-auto">
+        {generalError && (
+          <Alert color="red">
+            {generalError}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit} className="flex flex-col mt-8">
           <div className="mb-6 flex flex-col items-end gap-4">
             <div className="w-full">

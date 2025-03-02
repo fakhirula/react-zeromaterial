@@ -1,4 +1,4 @@
-import { Button, Card, Input } from "@material-tailwind/react";
+import { Alert, Button, Card, Input } from "@material-tailwind/react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import ValidationError from "../../../components/Section/ValidationError";
 export default function EditPaymentMethod() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -42,6 +43,7 @@ export default function EditPaymentMethod() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    setGeneralError(null);
     setLoading(true);
 
     try {
@@ -53,7 +55,11 @@ export default function EditPaymentMethod() {
 
       navigate("/dashboard/payment_methods");
     } catch (err) {
-      setErrors(err.response?.data?.data || {});
+      if (err.response && err.response?.status === 403) {
+        setGeneralError("You are not authorized to perform this action!");
+      } else {
+        setErrors(err.response.data.errors || {});
+      }
     } finally {
       setLoading(false);
     }
@@ -62,6 +68,11 @@ export default function EditPaymentMethod() {
   return (
     <section>
       <Card className="px-8 py-8 mt-12 mb-8 mx-auto">
+        {generalError && (
+          <Alert color="red">
+            {generalError}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit} className="flex flex-col mt-8">
           <div className="mb-6 flex flex-col items-end gap-4">
             <div className="w-full">

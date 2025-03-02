@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -17,15 +17,22 @@ import { formatPageName } from "../../../_formats";
 import PropTypes from "prop-types";
 import { logout } from "../../../_services/auth";
 
-export default function DashboardNavbar({ profile, openSidenav, setOpenSidenav }) {
+export default function DashboardNavbar({
+  profile,
+  openSidenav,
+  setOpenSidenav,
+}) {
   const [fixedNavbar, setFixedNavbar] = useState(false);
+
+  const navigate = useNavigate();
 
   const { pathname } = useLocation();
   const [layout, page, path] = pathname.split("/").filter((el) => el !== "");
 
   const handleLogout = () => {
     logout();
-  }
+    navigate("/login");
+  };
 
   return (
     <Navbar
@@ -78,14 +85,14 @@ export default function DashboardNavbar({ profile, openSidenav, setOpenSidenav }
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <Link>
+          <Link to="profile">
             <Button
               variant="text"
               color="blue-gray"
               className="hidden items-center gap-1 px-4 lg:flex normal-case"
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              { profile && profile.name }
+              {profile && profile.name}
             </Button>
             <IconButton
               variant="text"
@@ -105,6 +112,7 @@ export default function DashboardNavbar({ profile, openSidenav, setOpenSidenav }
 }
 
 DashboardNavbar.propTypes = {
+  profile: PropTypes.isRequired,
   openSidenav: PropTypes.isRequired,
   setOpenSidenav: PropTypes.isRequired,
 };

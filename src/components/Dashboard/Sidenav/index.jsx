@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  Button,
-  IconButton,
-  Typography,
-} from "@material-tailwind/react";
+import { Button, IconButton, Typography } from "@material-tailwind/react";
 import { useState } from "react";
-import { CurrencyDollarIcon, HomeIcon, TableCellsIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import {
+  CurrencyDollarIcon,
+  HomeIcon,
+  TableCellsIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/solid";
 import PropTypes from "prop-types";
 
 const icon = {
@@ -21,8 +22,8 @@ const routes = [
         icon: <HomeIcon {...icon} />,
         name: "dashboard",
         path: "",
-        element: '',
-      }
+        element: "",
+      },
     ],
   },
   {
@@ -33,25 +34,25 @@ const routes = [
         icon: <TableCellsIcon {...icon} />,
         name: "users",
         path: "/users",
-        element: '',
+        element: "",
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "plants",
         path: "/plants",
-        element: '',
+        element: "",
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "payment methods",
         path: "/payment_methods",
-        element: '',
+        element: "",
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "donation types",
         path: "/donation_types",
-        element: '',
+        element: "",
       },
     ],
   },
@@ -63,20 +64,20 @@ const routes = [
         icon: <TableCellsIcon {...icon} />,
         name: "testimonies",
         path: "/testimonies",
-        element: '',
+        element: "",
       },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "campaigns",
         path: "/campaigns",
-        element: '',
+        element: "",
       },
       {
         icon: <CurrencyDollarIcon {...icon} />,
         name: "donations",
         path: "/donations",
-        element: '',
-      }
+        element: "",
+      },
     ],
   },
   {
@@ -87,8 +88,8 @@ const routes = [
         icon: <UserCircleIcon {...icon} />,
         name: "profile",
         path: "/profile",
-        element: '',
-      }
+        element: "",
+      },
     ],
   },
 ];
@@ -97,11 +98,76 @@ export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
   const [sidenavType, setSidenavType] = useState("white");
   const [sidenavColor, setSidenavColor] = useState();
 
-
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
     transparent: "bg-transparent",
+  };
+
+  const filteredRoutes = () => {
+    if (profile && profile.role === "superadmin") {
+      return routes;
+    } else if (profile && profile.role === "penggerak") {
+      return [
+        {
+          title: "relation data",
+          layout: "dashboard",
+          pages: [
+            {
+              icon: <TableCellsIcon {...icon} />,
+              name: "campaigns",
+              path: "/campaigns",
+              element: "",
+            },
+            {
+              icon: <CurrencyDollarIcon {...icon} />,
+              name: "donations",
+              path: "/donations",
+              element: "",
+            },
+          ],
+        },
+        {
+          title: "setting",
+          layout: "dashboard",
+          pages: [
+            {
+              icon: <UserCircleIcon {...icon} />,
+              name: "profile",
+              path: "/profile",
+              element: "",
+            },
+          ],
+        },
+      ];
+    } else {
+      return [
+        {
+          title: "relation data",
+          layout: "dashboard",
+          pages: [
+            {
+              icon: <CurrencyDollarIcon {...icon} />,
+              name: "donations",
+              path: "/donations",
+              element: "",
+            },
+          ],
+        },
+        {
+          title: "setting",
+          layout: "dashboard",
+          pages: [
+            {
+              icon: <UserCircleIcon {...icon} />,
+              name: "profile",
+              path: "/profile",
+              element: "",
+            },
+          ],
+        },
+      ];
+    }
   };
 
   return (
@@ -132,7 +198,7 @@ export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
         </IconButton>
       </div>
       <div className="m-4">
-        {routes.map(({ layout, title, pages }, key) => (
+        {filteredRoutes().map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
               <li className="mx-3.5 mt-4 mb-2">
@@ -181,6 +247,10 @@ export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
 }
 
 Sidenav.propTypes = {
-  openSidenav: PropTypes.isRequired,
-  setOpenSidenav: PropTypes.isRequired,
+  profile: PropTypes.shape({
+    isAdmin: PropTypes.bool,
+    role: PropTypes.string,
+  }),
+  openSidenav: PropTypes.bool.isRequired,
+  setOpenSidenav: PropTypes.func.isRequired,
 };

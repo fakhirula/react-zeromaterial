@@ -18,7 +18,8 @@ import {
   XMarkIcon,
   ChevronUpIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../../_services/auth";
 
 const nestedMenuItems = [
   {
@@ -78,10 +79,10 @@ function NavListMenu() {
             open={openNestedMenu}
             handler={setopenNestedMenu}
           >
-            <Link to="/rumus">
+            <Link to="rumus">
               <MenuItem>Rumus</MenuItem>
             </Link>
-            <Link to="/hitung">
+            <Link to="hitung">
               <MenuItem>Hitung</MenuItem>
             </Link>
             <MenuHandler className="flex items-center justify-between">
@@ -131,27 +132,56 @@ function NavListMenu() {
   );
 }
 
-function NavList() {
+function NavList({profile}) {
   return (
     <List className="mb-6 mt-4 p-0 gap-4 lg:mb-0 lg:mt-0 lg:flex-row lg:p-1">
-      <Link to="/solusi">
-        <Typography variant="paragraph" color="blue-gray" className="font-medium">
+      <Link to="solusi">
+        <Typography
+          variant="paragraph"
+          color="blue-gray"
+          className="font-medium"
+        >
           <ListItem className="flex items-center gap-2 py-2">Solusi</ListItem>
         </Typography>
       </Link>
-      <Link to="/kampanye">
-        <Typography variant="paragraph" color="blue-gray" className="font-medium">
+      <Link to="kampanye">
+        <Typography
+          variant="paragraph"
+          color="blue-gray"
+          className="font-medium"
+        >
           <ListItem className="flex items-center gap-2 py-2">Kampanye</ListItem>
         </Typography>
       </Link>
+      {profile && (
+        <Link to="riwayat">
+          <Typography
+            variant="paragraph"
+            color="blue-gray"
+            className="font-medium"
+          >
+            <ListItem className="flex items-center gap-2 py-2">
+              Riwayat
+            </ListItem>
+          </Typography>
+        </Link>
+      )}
       <NavListMenu />
-      <Link to="/forum">
-        <Typography variant="paragraph" color="blue-gray" className="font-medium">
+      <Link to="forum">
+        <Typography
+          variant="paragraph"
+          color="blue-gray"
+          className="font-medium"
+        >
           <ListItem className="flex items-center gap-2 py-2">Forum</ListItem>
         </Typography>
       </Link>
-      <Link to="/tentang">
-        <Typography variant="paragraph" color="blue-gray" className="font-medium">
+      <Link to="tentang">
+        <Typography
+          variant="paragraph"
+          color="blue-gray"
+          className="font-medium"
+        >
           <ListItem className="flex items-center gap-2 py-2">Tentang</ListItem>
         </Typography>
       </Link>
@@ -168,6 +198,13 @@ export function NavbarSection({ profile }) {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <Navbar
@@ -186,19 +223,31 @@ export function NavbarSection({ profile }) {
           </Typography>
         </Link>
         <div className="hidden lg:block">
-          <NavList />
+          <NavList profile={profile} />
         </div>
-        <div className="hidden gap-2 lg:flex">
-          {profile ? (
-            <Link to="/dashboard/profile">
+        {profile ? (
+          <div className="hidden gap-2 lg:flex">
+            <Link to="profile">
               <Button size="md">Profile</Button>
             </Link>
-          ) : (
-            <Link to="/login">
+            <Button
+              variant="text"
+              className="text-red-900"
+              onClick={handleLogout}
+            >
+              Log out
+            </Button>
+          </div>
+        ) : (
+          <div className="hidden gap-2 lg:flex">
+            <Link to="login">
+              <Button variant="text">Log In</Button>
+            </Link>
+            <Link to="register">
               <Button size="md">Bergabung</Button>
             </Link>
-          )}
-        </div>
+          </div>
+        )}
         <IconButton
           variant="text"
           className="lg:hidden"
@@ -214,9 +263,15 @@ export function NavbarSection({ profile }) {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Link to="/login">
-            <Button size="md">Bergabung</Button>
-          </Link>
+          {profile ? (
+            <Link to="profile">
+              <Button size="md">Profile</Button>
+            </Link>
+          ) : (
+            <Link to="login">
+              <Button size="md">Bergabung</Button>
+            </Link>
+          )}
         </div>
       </Collapse>
     </Navbar>

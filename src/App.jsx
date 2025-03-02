@@ -28,6 +28,10 @@ import CreatePlant from "./pages/admin/plants/create.jsx";
 import CreateCampaign from "./pages/admin/campaigns/create.jsx";
 import EditCampaign from "./pages/admin/campaigns/edit.jsx";
 import EditPlant from "./pages/admin/plants/edit.jsx";
+import UserProfile from "./pages/public/profile/index.jsx";
+import AdminProfile from "./pages/admin/profile/index.jsx";
+import CampaignDetail from "./pages/public/campaign/show.jsx";
+import Record from "./pages/public/record/index.jsx";
 
 export default function App() {
   return (
@@ -37,11 +41,16 @@ export default function App() {
         <Route element={<PublicLayout />}>
           <Route index element={<Home />} />
           <Route path="kampanye" element={<Campaign />} />
+          <Route path="kampanye/:id" element={<CampaignDetail />} />
+
           <Route path="tentang" element={<About />} />
           <Route path="solusi" element={<Solution />} />
           <Route path="donasi" element={<Donate />} />
           <Route path="forum" element={<Forum />} />
           <Route path="galeri" element={<Gallery />} />
+
+          <Route path="riwayat" element={<Record />} />
+          <Route path="profile" element={<UserProfile />} />
         </Route>
 
         {/* Auth Routes */}
@@ -90,7 +99,7 @@ export default function App() {
             <Route path="edit/:id" element={<EditCampaign />} />
           </Route>
 
-          <Route path="profile" element="" />
+          <Route path="profile" element={<AdminProfile />} />
         </Route>
 
         {/* NotFound Route */}

@@ -1,4 +1,4 @@
-import { Button, Input, Card, Select, Option } from "@material-tailwind/react";
+import { Alert, Button, Input, Card, Select, Option } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { showCampaigns, updateCampaigns } from "../../../_services/campaign";
@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function EditCampaign() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState(null);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -69,6 +70,7 @@ export default function EditCampaign() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    setGeneralError(null);
     setLoading(true);
 
     const validationErrors = {};
@@ -112,7 +114,11 @@ export default function EditCampaign() {
       await updateCampaigns(id, payload);
       navigate("/dashboard/campaigns");
     } catch (err) {
-      setErrors(err.response?.data?.data || {});
+      if (err.response && err.response?.status === 403) {
+        setGeneralError("You are not authorized to perform this action!");
+      } else {
+        setErrors(err.response.data.errors || {});
+      }
     } finally {
       setLoading(false);
     }
@@ -121,6 +127,11 @@ export default function EditCampaign() {
   return (
     <section>
       <Card className="px-8 py-8 mt-12 mb-8 mx-auto">
+        {generalError && (
+          <Alert color="red">
+            {generalError}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit} className="flex flex-col">
           <div className="mb-6 flex flex-col gap-4 md:flex-row">
             <div className="w-full">

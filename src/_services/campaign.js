@@ -12,7 +12,11 @@ export const getCampaigns = async () => {
 
 export const storeCampaigns = async (data) => {
   try {
-    const response = await API.post("/campaigns", data)
+    const response = await API.post("/campaigns", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return response.data
   } catch (err) {
     console.log(err)
@@ -32,7 +36,11 @@ export const showCampaigns = async (id) => {
 
 export const updateCampaigns = async (id, data) => {
   try {
-    const response = await API.post(`/campaigns/${id}`, data)
+    const response = await API.post(`/campaigns/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return response.data
   } catch (err) {
     console.log(err)
@@ -42,7 +50,11 @@ export const updateCampaigns = async (id, data) => {
 
 export const destroyCampaigns = async (id) => {
   try {
-    await API.delete(`/campaigns/${id}`)
+    await API.delete(`/campaigns/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
   } catch (err) {
     console.log(err)
     throw err

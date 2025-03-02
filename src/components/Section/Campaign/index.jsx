@@ -10,8 +10,13 @@ import { DataError, DataLoading } from "../DataStatus";
 import { useEffect, useState } from "react";
 import { getCampaigns } from "../../../_services/campaign";
 import { campaignStorage } from "../../../_api";
-import { formatDaysLeft, formatProgress, formatThousandNumber } from "../../../_formats";
+import {
+  formatDaysLeft,
+  formatProgress,
+  formatThousandNumber,
+} from "../../../_formats";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function CampaignSection({ amount }) {
   const [loading, setLoading] = useState(false);
@@ -92,64 +97,66 @@ export default function CampaignSection({ amount }) {
             className="w-full max-w-[25rem] overflow-hidden border"
             key={data.id}
           >
-            <CardHeader
-              floated={false}
-              shadow={false}
-              color="blue-gray"
-              className="m-0 rounded-none"
-            >
-              <img
-                src={campaignStorage + data.image}
-                alt="card-image"
-                className="h-52 w-full object-cover"
-              />
-            </CardHeader>
-            <CardBody className="flex flex-col gap-3 py-8">
-              <Typography variant="h5" color="blue-gray" className="mb-2">
-                {data.title}
-              </Typography>
-              <Typography className="text-sm text-gray-500">
-                Campaigner:{" "}
-                <a
-                  href="#"
-                  className="font-semibold text-teal-800 hover:underline"
-                >
-                  {data.user.name}
-                </a>
-              </Typography>
-              <div className="flex flex-col gap-1">
-                <div className="w-full">
-                  <Typography className="text-sm text-gray-500">
-                    <span className="font-semibold text-eerie">
-                      {formatThousandNumber(data.collected_donation, "ENG")}
-                    </span>{" "}
-                    Donasi ditambahkan
-                  </Typography>
+            <Link to={`/kampanye/${data.id}`}>
+              <CardHeader
+                floated={false}
+                shadow={false}
+                color="blue-gray"
+                className="m-0 rounded-none"
+              >
+                <img
+                  src={campaignStorage + data.image}
+                  alt="card-image"
+                  className="h-52 w-full object-cover"
+                />
+              </CardHeader>
+              <CardBody className="flex flex-col gap-3 py-8">
+                <Typography variant="h5" color="blue-gray" className="mb-2">
+                  {data.title}
+                </Typography>
+                <Typography className="text-sm text-gray-500">
+                  Campaigner:{" "}
+                  <a
+                    href="#"
+                    className="font-semibold text-teal-800 hover:underline"
+                  >
+                    {data.user.name}
+                  </a>
+                </Typography>
+                <div className="flex flex-col gap-1">
+                  <div className="w-full">
+                    <Typography className="text-sm text-gray-500">
+                      <span className="font-semibold text-eerie">
+                        {formatThousandNumber(data.collected_donation, "ENG")}
+                      </span>{" "}
+                      Donasi ditambahkan
+                    </Typography>
+                  </div>
+                  <div className="flex justify-between">
+                    <Typography className="text-sm text-gray-500">
+                      <span className="font-semibold text-eerie">
+                        {data.total_trees_donated}
+                      </span>{" "}
+                      Pohon terkumpul
+                    </Typography>
+                    <Typography className="text-sm text-gray-500">
+                      <span className="font-semibold text-eerie">
+                        {formatDaysLeft(data.start_date, data.end_date)}
+                      </span>{" "}
+                      hari lagi
+                    </Typography>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <Typography className="text-sm text-gray-500">
-                    <span className="font-semibold text-eerie">
-                      {data.total_trees_donated}
-                    </span>{" "}
-                    Pohon terkumpul
-                  </Typography>
-                  <Typography className="text-sm text-gray-500">
-                    <span className="font-semibold text-eerie">
-                      {formatDaysLeft(data.start_date, data.end_date)}
-                    </span>{" "}
-                    hari lagi
-                  </Typography>
-                </div>
-              </div>
-              <Progress
-                value={formatProgress(
-                  data.target_donation,
-                  data.collected_donation
-                )}
-                size="sm"
-                color="teal"
-              />
-            </CardBody>
+                <Progress
+                  value={formatProgress(
+                    data.target_donation,
+                    data.collected_donation
+                  )}
+                  size="sm"
+                  color="teal"
+                />
+              </CardBody>
+            </Link>
           </Card>
         ))}
       </div>
@@ -161,7 +168,3 @@ export default function CampaignSection({ amount }) {
     </section>
   );
 }
-
-// CampaignSection.propTypes = {
-//   amount: PropTypes.isRequired,
-// };

@@ -2,7 +2,11 @@ import { API } from "../_api"
 
 export const getDonationTypes = async () => {
   try {
-    const { data } = await API.get("donation_types")
+    const { data } = await API.get("donation_types", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return data.data
   } catch (err) {
     console.log(err)
@@ -12,7 +16,11 @@ export const getDonationTypes = async () => {
 
 export const storeDonationTypes = async (data) => {
   try {
-    const response = await API.post("/donation_types", data)
+    const response = await API.post("/donation_types", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return response.data
   } catch (err) {
     console.log(err)
@@ -22,7 +30,11 @@ export const storeDonationTypes = async (data) => {
 
 export const showDonationTypes = async (id) => {
   try {
-    const { data } = await API.get(`/donation_types/${id}`)
+    const { data } = await API.get(`/donation_types/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return data.data
   } catch (err) {
     console.log(err)
@@ -32,7 +44,11 @@ export const showDonationTypes = async (id) => {
 
 export const updateDonationTypes = async (id, data) => {
   try {
-    const response = await API.post(`/donation_types/${id}`, data)
+    const response = await API.post(`/donation_types/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return response.data
   } catch (err) {
     console.log(err)
@@ -42,7 +58,11 @@ export const updateDonationTypes = async (id, data) => {
 
 export const destroyDonationTypes = async (id) => {
   try {
-    await API.delete(`/donation_types/${id}`)
+    await API.delete(`/donation_types/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
   } catch (err) {
     console.log(err)
     throw err

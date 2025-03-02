@@ -12,7 +12,11 @@ export const getDonations = async () => {
 
 export const storeDonations = async (data) => {
   try {
-    const response = await API.post("/donations", data)
+    const response = await API.post("/donations", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return response.data
   } catch (err) {
     console.log(err)
@@ -32,7 +36,11 @@ export const showDonations = async (id) => {
 
 export const updateDonations = async (id, data) => {
   try {
-    const response = await API.post(`/donations/${id}`, data)
+    const response = await API.post(`/donations/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
     return response.data
   } catch (err) {
     console.log(err)
@@ -42,7 +50,11 @@ export const updateDonations = async (id, data) => {
 
 export const destroyDonations = async (id) => {
   try {
-    await API.delete(`/donations/${id}`)
+    await API.delete(`/donations/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
   } catch (err) {
     console.log(err)
     throw err

@@ -7,7 +7,7 @@ const formatThousandNumber = (num, format) => {
     } else if (num >= 1000) {
       return (num / 1000).toFixed(1) + "K";
     } else {
-      return num.toString();
+      return num;
     }
   }
 
@@ -75,7 +75,7 @@ const formatProgress = (targetDonation, collectedDonation) => {
 
   const progress = (collected / target) * 100;
 
-  return Math.min(progress, 100).toFixed(2);
+  return Math.min(progress, 100).toFixed(0);
 };
 
 const decodeToken = (token) => {

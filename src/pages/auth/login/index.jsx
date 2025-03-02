@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Typography, Input, Button } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
@@ -52,6 +52,14 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (token) {
+      navigate(-1);
+    }
+  }, [token, navigate]);
 
   return (
     <section className="grid text-center h-screen items-center p-8">

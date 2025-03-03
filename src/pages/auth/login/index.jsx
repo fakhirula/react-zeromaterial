@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Typography, Input, Button, Alert } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../_services/auth";
 import ValidationError from "../../../components/Section/ValidationError";
 import { decodeToken } from "../../../_formats";
@@ -190,9 +190,9 @@ export default function Login() {
               className="!mt-4 text-center font-normal"
             >
               Not registered?{" "}
-              <a href="/register" className="font-medium text-gray-900">
+              <Link to="/register" className="font-medium text-gray-900">
                 Create account
-              </a>
+              </Link>
             </Typography>
           </form>
         </div>

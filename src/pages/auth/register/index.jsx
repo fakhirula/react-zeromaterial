@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Typography, Input, Button, Checkbox } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../../_services/auth";
 import ValidationError from "../../../components/Section/ValidationError";
 
@@ -196,9 +196,9 @@ export default function Register() {
             className="!mt-4 text-center font-normal"
           >
             Already have an account?{" "}
-            <a href="/login" className="font-medium text-gray-900">
+            <Link to="/login" className="font-medium text-gray-900">
               Sign In
-            </a>
+            </Link>
           </Typography>
         </form>
       </div>

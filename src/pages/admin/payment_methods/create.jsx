@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { storePaymentMethods } from "../../../_services/payment_method";
 import ValidationError from "../../../components/Section/ValidationError";
-import { XCircleIcon } from "@heroicons/react/24/solid";
 
 export default function CreatePaymentMethod() {
   const [errors, setErrors] = useState({});

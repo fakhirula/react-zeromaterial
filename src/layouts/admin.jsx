@@ -26,11 +26,13 @@ export default function AdminLayout() {
     if (!token) {
       navigate("/login");
     }
+  }, [token]);
 
+  useEffect(() => {
     if (userData?.role !== "superadmin") {
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [userData, navigate]);
 
   return (
     <div className="min-h-screen bg-blue-gray-50/50">

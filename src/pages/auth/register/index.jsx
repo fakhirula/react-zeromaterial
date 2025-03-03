@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Typography, Input, Button, Checkbox } from "@material-tailwind/react";
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
@@ -39,6 +39,14 @@ export default function Register() {
       setLoading(false);
     }
   };
+
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (token) {
+      navigate(-1);
+    }
+  }, [token, navigate]);
 
   return (
     <section className="grid text-center h-screen items-center p-8">
@@ -102,8 +110,8 @@ export default function Register() {
                 className: "hidden",
               }}
               error={!!errors.email}
-              />
-              {errors.email && <ValidationError message={errors.email[0]} />}
+            />
+            {errors.email && <ValidationError message={errors.email[0]} />}
           </div>
           <div className="">
             <label htmlFor="password">
@@ -135,8 +143,10 @@ export default function Register() {
                 </i>
               }
               error={!!errors.password}
-              />
-              {errors.password && <ValidationError message={errors.password[0]} />}
+            />
+            {errors.password && (
+              <ValidationError message={errors.password[0]} />
+            )}
           </div>
           <Checkbox
             label={

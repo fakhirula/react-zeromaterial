@@ -40,7 +40,7 @@ export default function ProfileSection({ profile }) {
                 variant="outlined"
                 className="border-gray-300 flex items-center gap-2"
               >
-                <i className="fa fa-github text-base" />
+                <i className="fa-brands fa-github" />
                 Github
               </Button>
               <Button

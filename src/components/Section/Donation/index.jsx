@@ -180,7 +180,7 @@ export default function DonationSection({ campaignId, profile }) {
                       <Button
                         key={id}
                         variant="outlined"
-                        className="max-w-full capitalize"
+                          
                         onClick={handleChange}
                         name="donation_type_id"
                         value={id}

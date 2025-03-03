@@ -52,31 +52,27 @@ export function Users() {
           color="gray"
           className="capitalize mb-8 p-6"
         >
-          <Link to={`create`}>
-            <Button color="teal" className="rounded-md">
-              Create Data
-            </Button>
-          </Link>
+          <Button color="teal" className="rounded-md">
+            Report Data
+          </Button>
         </CardHeader>
         <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["name", "email", "job", "role", "isactive"].map(
-                  (el) => (
-                    <th
-                      key={el}
-                      className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                {["name", "email", "job", "role", "isactive"].map((el) => (
+                  <th
+                    key={el}
+                    className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                  >
+                    <Typography
+                      variant="small"
+                      className="text-[11px] font-bold uppercase text-blue-gray-400"
                     >
-                      <Typography
-                        variant="small"
-                        className="text-[11px] font-bold uppercase text-blue-gray-400"
-                      >
-                        {el}
-                      </Typography>
-                    </th>
-                  )
-                )}
+                      {el}
+                    </Typography>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>

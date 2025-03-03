@@ -23,7 +23,7 @@ export function Plants() {
   const [error, setError] = useState(null);
 
   const { pathname } = useLocation();
-  const [page] = pathname.split("/").filter((el) => el !== "");
+  const [layout, page] = pathname.split("/").filter((el) => el !== "");
 
   const [datas, setDatas] = useState([]);
 

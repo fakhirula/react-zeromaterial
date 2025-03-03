@@ -1,4 +1,4 @@
-import { Textarea, Button, Input, Card } from "@material-tailwind/react";
+import { Textarea, Button, Input, Card, Alert } from "@material-tailwind/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { storePlants } from "../../../_services/plant";
@@ -6,9 +6,10 @@ import ValidationError from "../../../components/Section/ValidationError";
 
 export default function CreatePlant() {
   const [errors, setErrors] = useState({});
+  const [generalError, setGeneralError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     name: "",
     species: "",
@@ -29,6 +30,7 @@ export default function CreatePlant() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setGeneralError(null);
     setErrors({});
     setLoading(true);
 
@@ -38,18 +40,23 @@ export default function CreatePlant() {
     });
 
     try {
-      await storePlants(data);
+      await storePlants(formData);
       navigate(-1);
     } catch (err) {
-      setErrors(err.response?.data?.data || {});
+      if (err.response && err.response?.status === 403) {
+        setGeneralError("You are not authorized to perform this action!");
+      } else {
+        setErrors(err.response?.data?.data || {});
+      }
     } finally {
       setLoading(false);
     }
-  };  
+  };
 
   return (
     <section>
       <Card className="px-8 py-8 mt-12 mb-8 mx-auto">
+        {generalError && <Alert color="red">{generalError}</Alert>}
         <form onSubmit={handleSubmit} className="flex flex-col">
           <div className="mb-6 flex flex-col gap-4 md:flex-row">
             <div className="w-full">

@@ -93,6 +93,7 @@ export function Campaigns() {
                   "created by",
                   "plant",
                   "target donation",
+                  "collected donation",
                   "isactive",
                   "action",
                 ].map((el) => (
@@ -121,6 +122,7 @@ export function Campaigns() {
                     user,
                     plant,
                     target_donation,
+                    collected_donation,
                     isactive,
                   },
                   key
@@ -167,6 +169,11 @@ export function Campaigns() {
                       <td className={className}>
                         <Typography className="text-xs font-semibold text-blue-gray-600">
                           {formatThousandNumber(target_donation, "IND")}
+                        </Typography>
+                      </td>
+                      <td className={className}>
+                        <Typography className="text-xs font-semibold text-blue-gray-600">
+                          {formatThousandNumber(collected_donation, "IND")}
                         </Typography>
                       </td>
                       <td className={className}>

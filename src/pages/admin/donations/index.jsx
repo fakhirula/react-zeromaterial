@@ -4,24 +4,18 @@ import {
   CardBody,
   Typography,
   Button,
+  Select,
+  Option,
 } from "@material-tailwind/react";
-import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { formatThousandNumber } from "../../../_formats";
-import { destroyDonations, getDonations } from "../../../_services/donation";
-
-const icon = {
-  className: "w-5 h-5 text-inherit",
-};
+import { getDonations, updateDonations } from "../../../_services/donation";
+import { updateCampaigns } from "../../../_services/campaign";
 
 export function Donations() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const { pathname } = useLocation();
-  const [layout, page] = pathname.split("/").filter((el) => el !== "");
 
   const [datas, setDatas] = useState([]);
 
@@ -44,17 +38,33 @@ export function Donations() {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this resource?")) {
-      setLoading(true);
-      try {
-        await destroyDonations(id);
-        setDatas((prevData) => prevData.filter((data) => data.id !== id));
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const updateStatus = async (
+    id,
+    campaignId,
+    collectedDonation,
+    amount,
+    newStatus
+  ) => {
+    try {
+      await updateDonations(id, { status: newStatus, _method: "PUT" });
+
+      if (newStatus === "confirmed") {
+        await updateCampaigns(campaignId, {
+          collected_donation:
+            parseInt(collectedDonation, 10) + parseInt(amount, 10),
+          _method: "PUT",
+        });
       }
+
+      setDatas((prevDatas) =>
+        prevDatas.map((donation) =>
+          donation.id === id
+            ? { ...donation, status: newStatus ?? donation.status }
+            : donation
+        )
+      );
+    } catch (error) {
+      console.error("Failed to update status", error);
     }
   };
 
@@ -74,11 +84,9 @@ export function Donations() {
           color="gray"
           className="capitalize mb-8 p-6"
         >
-          <Link to={`create`}>
-            <Button color="teal" className="rounded-md">
-              Create Data
-            </Button>
-          </Link>
+          <Button color="teal" className="rounded-md">
+            Report Data
+          </Button>
         </CardHeader>
         <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
@@ -91,7 +99,6 @@ export function Donations() {
                   "donation_type",
                   "amount",
                   "status",
-                  "action",
                 ].map((el) => (
                   <th
                     key={el}
@@ -159,21 +166,27 @@ export function Donations() {
                         </Typography>
                       </td>
                       <td className={className}>
-                        <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {status}
-                        </Typography>
-                      </td>
-                      <td className={`${className} flex flex-row gap-2`}>
-                        <Typography as="a" href={`${page}/edit/${id}`}>
-                          <PencilSquareIcon {...icon} />
-                        </Typography>
-                        <Link to={`edit/${id}`}></Link>
-                        <Typography
-                          as="button"
-                          onClick={() => handleDelete(id)}
+                        <Select
+                          value={status}
+                          label="change status"
+                          onChange={(e) =>
+                            updateStatus(
+                              id,
+                              campaign.id,
+                              campaign.collected_donation,
+                              amount,
+                              e
+                            )
+                          }
+                          className="text-xs font-semibold text-blue-gray-600"
+                          disabled={
+                            status === "confirmed" || status === "failed"
+                          }
                         >
-                          <TrashIcon {...icon} />
-                        </Typography>
+                          <Option value="pending">Pending</Option>
+                          <Option value="confirmed">Confirmed</Option>
+                          <Option value="failed">Failed</Option>
+                        </Select>
                       </td>
                     </tr>
                   );

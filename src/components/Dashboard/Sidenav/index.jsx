@@ -62,14 +62,14 @@ const routes = [
     pages: [
       {
         icon: <TableCellsIcon {...icon} />,
-        name: "testimonies",
-        path: "/testimonies",
+        name: "campaigns",
+        path: "/campaigns",
         element: "",
       },
       {
         icon: <TableCellsIcon {...icon} />,
-        name: "campaigns",
-        path: "/campaigns",
+        name: "testimonies",
+        path: "/testimonies",
         element: "",
       },
       {

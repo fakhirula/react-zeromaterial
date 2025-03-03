@@ -30,7 +30,7 @@ export default function CreatePaymentMethod() {
       if (err.response && err.response?.status === 403) {
         setGeneralError("You are not authorized to perform this action!");
       } else {
-        setErrors(err.response.data.errors || {});
+        setErrors(err.response?.data?.data || {});
       }
     } finally {
       setLoading(false);
@@ -40,11 +40,7 @@ export default function CreatePaymentMethod() {
   return (
     <section>
       <Card className="px-8 py-8 mt-12 mb-8 mx-auto">
-        {generalError && (
-          <Alert color="red">
-            {generalError}
-          </Alert>
-        )}
+        {generalError && <Alert color="red">{generalError}</Alert>}
         <form onSubmit={handleSubmit} className="flex flex-col mt-8">
           <div className="mb-6 flex flex-col items-end gap-4">
             <div className="w-full">

@@ -5,23 +5,16 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { destroyTestimonies, getTestimonies } from "../../../_services/testimony";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import {
+  getTestimonies,
+} from "../../../_services/testimony";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { formatDateString, formatTruncateText } from "../../../_formats";
-
-const icon = {
-  className: "w-5 h-5 text-inherit",
-};
 
 export function Testimonies() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const { pathname } = useLocation();
-  const [page] = pathname.split("/").filter((el) => el !== "");
 
   const [datas, setDatas] = useState([]);
 
@@ -44,20 +37,6 @@ export function Testimonies() {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this resource?")) {
-      setLoading(true);
-      try {
-        await destroyTestimonies(id);
-        setDatas((prevData) => prevData.filter((data) => data.id !== id));
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
   if (loading) {
     return <DataLoading />;
   }
@@ -74,17 +53,15 @@ export function Testimonies() {
           color="gray"
           className="capitalize mb-8 p-6"
         >
-          <Link to={`create`}>
-            <Button color="teal" className="rounded-md">
-              Create Data
-            </Button>
-          </Link>
+          <Button color="teal" className="rounded-md">
+            Report Data
+          </Button>
         </CardHeader>
         <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["user", "quotes", "date", "action"].map((el) => (
+                {["user", "quotes", "date"].map((el) => (
                   <th
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -100,7 +77,7 @@ export function Testimonies() {
               </tr>
             </thead>
             <tbody>
-              {datas.map(({ id, user, quotes, created_at }, key) => {
+              {datas.map(({ user, quotes, created_at }, key) => {
                 const className = `py-3 px-5 ${
                   key === datas.length - 1 ? "" : "border-b border-blue-gray-50"
                 }`;
@@ -124,15 +101,6 @@ export function Testimonies() {
                     <td className={className}>
                       <Typography className="text-xs font-semibold text-blue-gray-600">
                         {formatDateString(created_at)}
-                      </Typography>
-                    </td>
-                    <td className={`${className} flex flex-row gap-2`}>
-                      <Typography as="a" href={`${page}/edit/${id}`}>
-                        <PencilSquareIcon {...icon} />
-                      </Typography>
-                      <Link to={`edit/${id}`}></Link>
-                      <Typography as="button" onClick={() => handleDelete(id)}>
-                        <TrashIcon {...icon} />
                       </Typography>
                     </td>
                   </tr>

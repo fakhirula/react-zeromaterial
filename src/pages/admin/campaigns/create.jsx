@@ -71,7 +71,7 @@ export default function CreateCampaign() {
       if (err.response && err.response?.status === 403) {
         setGeneralError("You are not authorized to perform this action!");
       } else {
-        setErrors(err.response.data.errors || {});
+        setErrors(err.response?.data?.data || {});
       }
     } finally {
       setLoading(false);

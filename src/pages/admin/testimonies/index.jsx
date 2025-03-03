@@ -21,7 +21,7 @@ export function Testimonies() {
   const [error, setError] = useState(null);
 
   const { pathname } = useLocation();
-  const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const [page] = pathname.split("/").filter((el) => el !== "");
 
   const [datas, setDatas] = useState([]);
 

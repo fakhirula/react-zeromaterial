@@ -29,6 +29,14 @@ export function KpiCard({ title, percentage, price, color, icon }) {
   );
 }
 
+KpiCard.propTypes = {
+  title: "string",
+  percentage: "string",
+  price: "string",
+  color: "string",
+  icon: "string",
+};
+
 const data = [
   {
     title: "Revenue",

@@ -84,7 +84,7 @@ export function Users() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["name", "email", "job", "role", "isactive", "action"].map(
+                {["name", "email", "job", "role", "isactive"].map(
                   (el) => (
                     <th
                       key={el}
@@ -136,15 +136,6 @@ export function Users() {
                     <td className={className}>
                       <Typography className="text-xs font-semibold text-blue-gray-600">
                         {formatIsActive(isactive)}
-                      </Typography>
-                    </td>
-                    <td className={`${className} flex flex-row gap-2`}>
-                      <Typography as="a" href={`${page}/edit/${id}`}>
-                        <PencilSquareIcon {...icon} />
-                      </Typography>
-                      <Link to={`edit/${id}`}></Link>
-                      <Typography as="button" onClick={() => handleDelete(id)}>
-                        <TrashIcon {...icon} />
                       </Typography>
                     </td>
                   </tr>

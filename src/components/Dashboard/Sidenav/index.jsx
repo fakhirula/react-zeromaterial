@@ -95,8 +95,8 @@ const routes = [
 ];
 
 export default function Sidenav({ openSidenav, setOpenSidenav }) {
-  const [sidenavType, setSidenavType] = useState("white");
-  const [sidenavColor, setSidenavColor] = useState();
+  const [sidenavType] = useState("transparent");
+  const [sidenavColor] = useState();
 
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
@@ -115,7 +115,7 @@ export default function Sidenav({ openSidenav, setOpenSidenav }) {
           <Typography
             as="a"
             variant="h6"
-            color={sidenavType === "black" ? "white" : "blue-gray"}
+            color={sidenavType === "dark" ? "white" : "blue-gray"}
           >
             ZEROMATERIAL
           </Typography>

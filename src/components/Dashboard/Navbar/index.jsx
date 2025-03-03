@@ -12,7 +12,6 @@ import {
   Bars3Icon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
 import { formatPageName } from "../../../_formats";
 import PropTypes from "prop-types";
 import { logout } from "../../../_services/auth";
@@ -22,8 +21,6 @@ export default function DashboardNavbar({
   openSidenav,
   setOpenSidenav,
 }) {
-  const [fixedNavbar, setFixedNavbar] = useState(false);
-
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
@@ -36,22 +33,14 @@ export default function DashboardNavbar({
 
   return (
     <Navbar
-      color={fixedNavbar ? "white" : "transparent"}
-      className={`rounded-xl transition-all ${
-        fixedNavbar
-          ? "sticky top-4 z-40 py-3 shadow-md shadow-blue-gray-500/5"
-          : "px-0 py-1"
-      }`}
+      color="transparent"
+      className={`rounded-xl transition-all px-0 py-1`}
       fullWidth
-      blurred={fixedNavbar}
+      blurred="false"
     >
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
-          <Breadcrumbs
-            className={`bg-transparent p-0 transition-all ${
-              fixedNavbar ? "mt-1" : ""
-            }`}
-          >
+          <Breadcrumbs className={`bg-transparent p-0 transition-all`}>
             <Link to={`/${layout}`}>
               <Typography
                 variant="small"

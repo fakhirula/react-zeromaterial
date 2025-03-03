@@ -5,23 +5,15 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { formatIsActive } from "../../../_formats";
-import { destroyUsers, getUsers } from "../../../_services/user";
-
-const icon = {
-  className: "w-5 h-5 text-inherit",
-};
+import { getUsers } from "../../../_services/user";
 
 export function Users() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const { pathname } = useLocation();
-  const [layout, page] = pathname.split("/").filter((el) => el !== "");
 
   const [datas, setDatas] = useState([]);
 
@@ -43,20 +35,6 @@ export function Users() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this resource?")) {
-      setLoading(true);
-      try {
-        await destroyUsers(id);
-        setDatas((prevData) => prevData.filter((data) => data.id !== id));
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
 
   if (loading) {
     return <DataLoading />;
@@ -102,7 +80,7 @@ export function Users() {
               </tr>
             </thead>
             <tbody>
-              {datas.map(({ id, name, email, job, role, isactive }, key) => {
+              {datas.map(({ name, email, job, role, isactive }, key) => {
                 const className = `py-3 px-5 ${
                   key === datas.length - 1 ? "" : "border-b border-blue-gray-50"
                 }`;

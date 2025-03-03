@@ -7,6 +7,7 @@ import {
   Input,
   Typography,
 } from "@material-tailwind/react";
+import PropTypes from "prop-types";
 
 export default function ProfileSection({ profile }) {
   return (
@@ -159,3 +160,7 @@ export default function ProfileSection({ profile }) {
     </section>
   );
 }
+
+ProfileSection.propTypes = {
+  profile: PropTypes.object,
+};

@@ -13,9 +13,9 @@ import { storeTestimonies } from "../../../_services/testimony";
 import { useNavigate } from "react-router-dom";
 import { storeDonations } from "../../../_services/donation";
 import { getDonationTypes } from "../../../_services/donation_type";
-import NotFound from "../NotFound";
 import { DataError, DataLoading } from "../DataStatus";
 import { showCampaigns } from "../../../_services/campaign";
+import PropTypes from "prop-types";
 
 export default function DonationSection({ campaignId, profile }) {
   const [loading, setLoading] = useState(false);
@@ -331,3 +331,8 @@ export default function DonationSection({ campaignId, profile }) {
     </section>
   );
 }
+
+DonationSection.propTypes = {
+  campaignId: PropTypes.object,
+  profile: PropTypes.object,
+};

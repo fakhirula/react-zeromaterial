@@ -168,3 +168,7 @@ export default function CampaignSection({ amount }) {
     </section>
   );
 }
+
+CampaignSection.propTypes = {
+  amount: PropTypes.string,
+};

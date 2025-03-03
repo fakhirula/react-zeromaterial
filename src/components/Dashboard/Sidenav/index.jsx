@@ -95,7 +95,7 @@ const routes = [
 ];
 
 export default function Sidenav({ openSidenav, setOpenSidenav }) {
-  const [sidenavType] = useState("transparent");
+  const [sidenavType] = useState("white");
   const [sidenavColor] = useState();
 
   const sidenavTypes = {
@@ -181,10 +181,7 @@ export default function Sidenav({ openSidenav, setOpenSidenav }) {
 }
 
 Sidenav.propTypes = {
-  profile: PropTypes.shape({
-    isAdmin: PropTypes.bool,
-    role: PropTypes.string,
-  }),
+  profile: PropTypes.object.isRequired,
   openSidenav: PropTypes.bool.isRequired,
   setOpenSidenav: PropTypes.func.isRequired,
 };

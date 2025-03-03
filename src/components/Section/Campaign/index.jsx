@@ -116,12 +116,12 @@ export default function CampaignSection({ amount }) {
                 </Typography>
                 <Typography className="text-sm text-gray-500">
                   Campaigner:{" "}
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     className="font-semibold text-teal-800 hover:underline"
                   >
                     {data.user.name}
-                  </a>
+                  </Link>
                 </Typography>
                 <div className="flex flex-col gap-1">
                   <div className="w-full">

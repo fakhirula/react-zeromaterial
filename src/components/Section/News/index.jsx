@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { formatDateString, formatThousandNumber } from "../../../_formats";
+import { Link } from "react-router-dom";
 
 export default function NewsSection() {
   const [loading, setLoading] = useState(false);
@@ -71,7 +72,7 @@ export default function NewsSection() {
                       jianbing microdosing tousled waistcoat.
                     </p>
                     <div className="flex items-center flex-wrap ">
-                      <a className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
+                      <Link to="#" className="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
                         Learn More
                         <svg
                           className="w-4 h-4 ml-2"
@@ -85,7 +86,7 @@ export default function NewsSection() {
                           <path d="M5 12h14"></path>
                           <path d="M12 5l7 7-7 7"></path>
                         </svg>
-                      </a>
+                      </Link>
                       <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
                         <svg
                           className="w-4 h-4 mr-1"

@@ -1,4 +1,5 @@
 import { Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const LINKS = [
   {
@@ -56,7 +57,7 @@ export default function FooterSection() {
             variant="small"
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
-            &copy; {currentYear} <a href="#">zeromaterial</a>. All Rights Reserved.
+            &copy; {currentYear} <Link to="#">zeromaterial</Link>. All Rights Reserved.
           </Typography>
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
             <Typography

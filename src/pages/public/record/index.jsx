@@ -18,14 +18,12 @@ import {
   formatDateString,
   formatThousandNumber,
 } from "../../../_formats";
-import { showUserDonations } from "../../../_services/user";
 import { getDonations } from "../../../_services/donation";
 import { campaignStorage } from "../../../_api";
 import { useNavigate } from "react-router-dom";
 
 export default function Record() {
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
   const [listData, setListData] = useState([]);
 
   const token = localStorage.getItem("accessToken");
@@ -48,6 +46,7 @@ export default function Record() {
         );
         setListData(filteredDonations);
       } catch (error) {
+        setErrors(error.response.data.errors || {});
         console.error(error);
       }
     };

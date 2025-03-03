@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { decodeToken } from "../_formats";
 
 export default function AdminLayout() {
-  const [openSidenav, setOpenSidenav] = useState(false);
+  const [openSidenav, setOpenSidenav] = useState(true);
   const sidenavType = "white";
   const navigate = useNavigate();
 

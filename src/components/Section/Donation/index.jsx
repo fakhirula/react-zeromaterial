@@ -34,6 +34,11 @@ export default function DonationSection({ campaignId, profile }) {
     quotes: "",
   });
 
+  // State to track selected buttons
+  const [selectedDonationAmount, setSelectedDonationAmount] = useState(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [selectedDonationType, setSelectedDonationType] = useState(null);
+
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -64,6 +69,13 @@ export default function DonationSection({ campaignId, profile }) {
 
     if (name === "donation_amount") {
       setFormData((prevData) => ({ ...prevData, amount: value }));
+      setSelectedDonationAmount(value);
+    } else if (name === "payment_method_id") {
+      setFormData((prevData) => ({ ...prevData, payment_method_id: value }));
+      setSelectedPaymentMethod(value);
+    } else if (name === "donation_type_id") {
+      setFormData((prevData) => ({ ...prevData, donation_type_id: value }));
+      setSelectedDonationType(value);
     } else {
       setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
@@ -136,7 +148,9 @@ export default function DonationSection({ campaignId, profile }) {
                       <Button
                         key={amount}
                         variant="outlined"
-                        className="max-w-full capitalize"
+                        className={`max-w-full capitalize ${
+                          selectedDonationAmount == amount ? "bg-gray-200" : ""
+                        }`}
                         onClick={handleChange}
                         name="donation_amount"
                         value={amount}
@@ -158,7 +172,9 @@ export default function DonationSection({ campaignId, profile }) {
                       <Button
                         key={id}
                         variant="outlined"
-                        className="max-w-full capitalize"
+                        className={`max-w-full capitalize ${
+                          selectedPaymentMethod == id ? "bg-gray-200" : ""
+                        }`}
                         onClick={handleChange}
                         name="payment_method_id"
                         value={id}
@@ -180,7 +196,9 @@ export default function DonationSection({ campaignId, profile }) {
                       <Button
                         key={id}
                         variant="outlined"
-                          
+                        className={`max-w-full capitalize ${
+                          selectedDonationType == id ? "bg-gray-200" : ""
+                        }`}
                         onClick={handleChange}
                         name="donation_type_id"
                         value={id}

@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Progress,
-  Typography,
-} from "@material-tailwind/react";
+import { Button, Progress, Typography } from "@material-tailwind/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { showCampaigns } from "../../../_services/campaign";
 import { campaignStorage } from "../../../_api";
@@ -12,6 +8,7 @@ import {
   formatProgress,
   formatThousandNumber,
 } from "../../../_formats";
+import { DataError, DataLoading } from "../../../components/Section/DataStatus";
 
 export default function CampaignDetail() {
   const [loading, setLoading] = useState(false);
@@ -43,6 +40,14 @@ export default function CampaignDetail() {
   const handleButtonClick = () => {
     navigate("/donasi", { state: { id } });
   };
+
+  if (loading) {
+    return <DataLoading />;
+  }
+
+  if (error) {
+    return <DataError msg={error} />;
+  }
 
   return (
     <section className="py-16 px-8">

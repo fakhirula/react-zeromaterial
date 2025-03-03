@@ -27,5 +27,5 @@ export function DataError({ msg }) {
 }
 
 DataError.propTypes = {
-  msg: PropTypes.string.isRequired,
+  msg: PropTypes.isRequired,
 };

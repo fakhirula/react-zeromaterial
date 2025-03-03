@@ -83,7 +83,6 @@ const decodeToken = (token) => {
     const decoded = jwtDecode(token);
     return decoded;
   } catch (error) {
-    console.error("Failed to decode token:", error.message);
     return {
       success: false,
       message: error.message,

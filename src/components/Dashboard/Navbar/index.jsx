@@ -36,7 +36,6 @@ export default function DashboardNavbar({
       color="transparent"
       className={`rounded-xl transition-all px-0 py-1`}
       fullWidth
-      blurred="false"
     >
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
@@ -47,7 +46,7 @@ export default function DashboardNavbar({
                 color="blue-gray"
                 className="font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100"
               >
-                {layout}
+                {layout} {" "}
               </Typography>
             </Link>
             <Typography
@@ -55,11 +54,11 @@ export default function DashboardNavbar({
               color="blue-gray"
               className="font-normal"
             >
-              {page && formatPageName(page)}
+              {page ? formatPageName(page) : ""}
             </Typography>
           </Breadcrumbs>
           <Typography variant="h6" color="blue-gray">
-            {path && formatPageName(path)}
+            {path ? formatPageName(path) : ""}
           </Typography>
         </div>
         <div className="flex items-center">
@@ -81,7 +80,7 @@ export default function DashboardNavbar({
               className="hidden items-center gap-1 px-4 lg:flex normal-case"
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-              {profile && profile.name}
+              {profile ? profile.name : ""}
             </Button>
             <IconButton
               variant="text"
@@ -101,7 +100,7 @@ export default function DashboardNavbar({
 }
 
 DashboardNavbar.propTypes = {
-  profile: PropTypes.isRequired,
-  openSidenav: PropTypes.isRequired,
-  setOpenSidenav: PropTypes.isRequired,
+  profile: PropTypes.object.isRequired,
+  openSidenav: PropTypes.bool.isRequired,
+  setOpenSidenav: PropTypes.func.isRequired,
 };

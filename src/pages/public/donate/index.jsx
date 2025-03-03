@@ -16,18 +16,11 @@ export default function Donate() {
     if (!id) {
       navigate(-1);
     }
-    
+
     if (!token) {
       navigate("/login");
     }
-
   }, [token, navigate]);
 
-  console.log(id);
-
-  return (
-    <>
-      <DonationSection campaignId={id} profile={userData} />
-    </>
-  );
+  return <DonationSection campaignId={id} profile={userData} />;
 }

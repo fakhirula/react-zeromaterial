@@ -97,8 +97,6 @@ export default function DonationSection({ campaignId, profile }) {
     }
   };
 
-  console.log(formData);
-  
   if (loading) {
     return <DataLoading />;
   }

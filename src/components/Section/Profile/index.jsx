@@ -1,5 +1,5 @@
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 import {
-  Avatar,
   Button,
   Card,
   CardBody,
@@ -13,27 +13,25 @@ export default function ProfileSection({ profile }) {
     <section className="container mx-auto px-8 py-10">
       <Card shadow={false} className="border border-gray-300 rounded-2xl">
         <CardHeader shadow={false} className="h-60 !rounded-lg">
-          {/* <Image
-            src="/image/dark-image.png"
+          <img
+            src="https://fastly.picsum.photos/id/57/2448/3264.jpg?hmac=ewraXYesC6HuSEAJsg3Q80bXd1GyJTxekI05Xt9YjfQ"
             alt="dark"
-            height={1024}
-            width={1024}
-            className="w-full h-full object-center"
-          /> */}
+            className="object-center"
+          />
         </CardHeader>
         <CardBody>
           <div className="flex lg:gap-0 gap-6 flex-wrap justify-between items-center">
             <div className="flex items-center gap-3">
-              <Avatar src="/img/avatar1.jpg" alt="avatar" variant="rounded" />
+              <UserCircleIcon className="w-10 h-10" />
               <div>
                 <Typography color="blue-gray" variant="h6">
-                  { profile.name }
+                  {profile.name}
                 </Typography>
                 <Typography
                   variant="small"
                   className="font-normal text-gray-600"
                 >
-                  { profile.email }
+                  {profile.email}
                 </Typography>
               </div>
             </div>

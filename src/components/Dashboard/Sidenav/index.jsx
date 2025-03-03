@@ -94,7 +94,7 @@ const routes = [
   },
 ];
 
-export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
+export default function Sidenav({ openSidenav, setOpenSidenav }) {
   const [sidenavType, setSidenavType] = useState("white");
   const [sidenavColor, setSidenavColor] = useState();
 
@@ -102,72 +102,6 @@ export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
     dark: "bg-gradient-to-br from-gray-800 to-gray-900",
     white: "bg-white shadow-sm",
     transparent: "bg-transparent",
-  };
-
-  const filteredRoutes = () => {
-    if (profile && profile.role === "superadmin") {
-      return routes;
-    } else if (profile && profile.role === "penggerak") {
-      return [
-        {
-          title: "relation data",
-          layout: "dashboard",
-          pages: [
-            {
-              icon: <TableCellsIcon {...icon} />,
-              name: "campaigns",
-              path: "/campaigns",
-              element: "",
-            },
-            {
-              icon: <CurrencyDollarIcon {...icon} />,
-              name: "donations",
-              path: "/donations",
-              element: "",
-            },
-          ],
-        },
-        {
-          title: "setting",
-          layout: "dashboard",
-          pages: [
-            {
-              icon: <UserCircleIcon {...icon} />,
-              name: "profile",
-              path: "/profile",
-              element: "",
-            },
-          ],
-        },
-      ];
-    } else {
-      return [
-        {
-          title: "relation data",
-          layout: "dashboard",
-          pages: [
-            {
-              icon: <CurrencyDollarIcon {...icon} />,
-              name: "donations",
-              path: "/donations",
-              element: "",
-            },
-          ],
-        },
-        {
-          title: "setting",
-          layout: "dashboard",
-          pages: [
-            {
-              icon: <UserCircleIcon {...icon} />,
-              name: "profile",
-              path: "/profile",
-              element: "",
-            },
-          ],
-        },
-      ];
-    }
   };
 
   return (
@@ -198,7 +132,7 @@ export default function Sidenav({ profile, openSidenav, setOpenSidenav }) {
         </IconButton>
       </div>
       <div className="m-4">
-        {filteredRoutes().map(({ layout, title, pages }, key) => (
+        {routes.map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
               <li className="mx-3.5 mt-4 mb-2">

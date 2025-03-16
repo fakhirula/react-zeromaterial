@@ -13,7 +13,7 @@ import {
   XCircleIcon,
 } from "@heroicons/react/24/solid";
 import {
-  decodeToken,
+  useDecodeToken,
   formatDateString,
   formatThousandNumber,
 } from "../../../_formats";
@@ -26,7 +26,7 @@ export default function Record() {
   const [listData, setListData] = useState([]);
 
   const token = localStorage.getItem("accessToken");
-  const userData = decodeToken(token);
+  const userData = useDecodeToken(token).data;
 
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ export default function Record() {
     };
 
     fetchData();
-  }, [userData.id]);
+  }, [userData]);
 
   const getStatusIcon = (status) => {
     switch (status) {

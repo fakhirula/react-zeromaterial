@@ -15,7 +15,7 @@ export default function CreatePlant() {
     species: "",
     price: "",
     description: "",
-    image: null,
+    image: "",
     growing_conditions: "",
     benefit: "",
   });
@@ -40,7 +40,7 @@ export default function CreatePlant() {
     });
 
     try {
-      await storePlants(formData);
+      await storePlants(data);
       navigate(-1);
     } catch (err) {
       if (err.response && err.response?.status === 403) {
@@ -52,6 +52,9 @@ export default function CreatePlant() {
       setLoading(false);
     }
   };
+
+  console.log(formData);
+  
 
   return (
     <section>

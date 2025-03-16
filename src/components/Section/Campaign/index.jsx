@@ -31,7 +31,10 @@ export default function CampaignSection({ amount }) {
 
       try {
         const getData = await getCampaigns();
-        setDatas(getData);
+        const activeCampaigns = getData.filter(
+          (campaign) => campaign.status === 'active'
+        );
+        setDatas(activeCampaigns);
       } catch (err) {
         setError("Failed to fetch data, please try again later.");
         console.log(err);

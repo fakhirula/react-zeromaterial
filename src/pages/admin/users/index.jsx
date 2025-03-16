@@ -4,12 +4,13 @@ import {
   CardBody,
   Typography,
   Button,
+  Select,
+  Option,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { formatIsActive } from "../../../_formats";
-import { getUsers } from "../../../_services/user";
+import { getUsers, updateUsers } from "../../../_services/user";
 
 export function Users() {
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,22 @@ export function Users() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const updateStatus = async (id, newStatus) => {
+    try {
+      await updateUsers(id, { isactive: newStatus, _method: "PUT" });
+
+      setDatas((prevDatas) =>
+        prevDatas.map((user) =>
+          user.id === id
+            ? { ...user, isactive: newStatus ?? user.isactive }
+            : user
+        )
+      );
+    } catch (error) {
+      console.error("Failed to update status", error);
+    }
+  };
 
   if (loading) {
     return <DataLoading />;
@@ -76,7 +93,7 @@ export function Users() {
               </tr>
             </thead>
             <tbody>
-              {datas.map(({ name, email, job, role, isactive }, key) => {
+              {datas.map(({ id, name, email, job, role, isactive }, key) => {
                 const className = `py-3 px-5 ${
                   key === datas.length - 1 ? "" : "border-b border-blue-gray-50"
                 }`;
@@ -108,9 +125,16 @@ export function Users() {
                       </Typography>
                     </td>
                     <td className={className}>
-                      <Typography className="text-xs font-semibold text-blue-gray-600">
-                        {formatIsActive(isactive)}
-                      </Typography>
+                      <Select
+                        value={isactive === 1 ? "1" : "0"}
+                        label="change status"
+                        onChange={(e) => updateStatus(id, e)}
+                        className="text-xs font-semibold text-blue-gray-600"
+                        disabled={role === "superadmin"}
+                      >
+                        <Option value="1">Active</Option>
+                        <Option value="0">Non-active</Option>
+                      </Select>
                     </td>
                   </tr>
                 );

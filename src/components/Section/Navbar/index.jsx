@@ -200,9 +200,12 @@ export function NavbarSection({ profile }) {
   }, []);
 
   const navigate = useNavigate();
-  
-  const handleLogout = () => {
-    logout();
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      await logout({ token });
+    }
     navigate("/login");
   };
 

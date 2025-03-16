@@ -1,4 +1,4 @@
-import { jwtDecode } from "jwt-decode";
+import { useJwt } from "react-jwt";
 
 const formatThousandNumber = (num, format) => {
   if (format === "ENG") {
@@ -78,10 +78,23 @@ const formatProgress = (targetDonation, collectedDonation) => {
   return Math.min(progress, 100).toFixed(0);
 };
 
-const decodeToken = (token) => {
+const useDecodeToken = (token) => {
+  const { decodedToken, isExpired } = useJwt(token);
+
   try {
-    const decoded = jwtDecode(token);
-    return decoded;
+    if (isExpired) {
+      return {
+        success: false,
+        message: "Token sudah kedaluwarsa",
+        data: null,
+      };
+    }
+
+    return {
+      success: true,
+      message: "Token valid",
+      data: decodedToken,
+    };
   } catch (error) {
     return {
       success: false,
@@ -89,7 +102,7 @@ const decodeToken = (token) => {
       data: null,
     };
   }
-}
+};
 
 export {
   formatThousandNumber,
@@ -99,5 +112,5 @@ export {
   formatPageName,
   formatDaysLeft,
   formatProgress,
-  decodeToken
+  useDecodeToken,
 };

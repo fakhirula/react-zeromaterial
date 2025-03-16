@@ -1,9 +1,10 @@
-import { decodeToken } from "../../../_formats";
+import { useOutletContext } from "react-router-dom";
 import ProfileSection from "../../../components/Section/Profile";
 
 export default function AdminProfile() {
+  const { userData } = useOutletContext();
 
-  const userData = decodeToken(localStorage.getItem("accessToken"));
-
-  return <ProfileSection profile={userData} />;
+  return (
+    <>{userData ? <ProfileSection profile={userData} /> : <p>Loading...</p>}</>
+  );
 }

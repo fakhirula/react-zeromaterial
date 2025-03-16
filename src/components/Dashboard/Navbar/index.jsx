@@ -26,9 +26,12 @@ export default function DashboardNavbar({
   const { pathname } = useLocation();
   const [layout, page, path] = pathname.split("/").filter((el) => el !== "");
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
+  const handleLogout = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      await logout({ token });
+    }
+    navigate("/login"); 
   };
 
   return (
@@ -46,7 +49,7 @@ export default function DashboardNavbar({
                 color="blue-gray"
                 className="font-normal opacity-50 transition-all hover:text-blue-500 hover:opacity-100"
               >
-                {layout} {" "}
+                {layout}{" "}
               </Typography>
             </Link>
             <Typography

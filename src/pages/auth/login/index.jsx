@@ -5,7 +5,7 @@ import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../../_services/auth";
 import ValidationError from "../../../components/Section/ValidationError";
-import { decodeToken } from "../../../_formats";
+import { useDecodeToken } from "../../../_formats";
 
 export default function Login() {
   const [errors, setErrors] = useState({});
@@ -14,6 +14,9 @@ export default function Login() {
     email: "",
     password: "",
   });
+
+  const token = localStorage.getItem("accessToken");
+  const decodedData = useDecodeToken(token);
 
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => setPasswordShown((cur) => !cur);
@@ -39,13 +42,6 @@ export default function Login() {
         localStorage.removeItem("redirectAfterLogin");
         return navigate(redirectTo);
       }
-
-      const checkRole = decodeToken(res.token);
-      if (checkRole.role === "superadmin") {
-        return navigate("/dashboard");
-      } else {
-        return navigate("/");
-      }
     } catch (err) {
       if (err.response) {
         const errorData = err.response.data;
@@ -61,13 +57,11 @@ export default function Login() {
     }
   };
 
-  const token = localStorage.getItem("accessToken");
-
   useEffect(() => {
-    if (token) {
-      navigate(-1);
+    if (token && decodedData && decodedData.success) {
+      navigate("/dashboard");
     }
-  }, [token, navigate]);
+  }, [token, decodedData, navigate]);
 
   return (
     <section className="grid h-screen items-center p-8">

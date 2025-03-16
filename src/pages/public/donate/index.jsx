@@ -1,14 +1,15 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import DonationSection from "../../../components/Section/Donation";
-import { decodeToken } from "../../../_formats";
+import { useDecodeToken } from "../../../_formats";
 import { useEffect } from "react";
 
 export default function Donate() {
   const location = useLocation();
   const id = location.state;
 
+  const { userData } = useOutletContext();
   const token = localStorage.getItem("accessToken");
-  const userData = decodeToken(token);
+
 
   const navigate = useNavigate();
 
@@ -22,5 +23,13 @@ export default function Donate() {
     }
   }, [token, navigate]);
 
-  return <DonationSection campaignId={id} profile={userData} />;
+  return (
+    <>
+      {userData ? (
+        <DonationSection campaignId={id} profile={userData} />
+      ) : (
+        <p>Loading...</p>
+      )}
+    </>
+  );
 }

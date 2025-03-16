@@ -5,6 +5,8 @@ import {
   Typography,
   Avatar,
   Button,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -12,7 +14,11 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { campaignStorage } from "../../../_api";
 import { formatIsActive, formatThousandNumber } from "../../../_formats";
-import { destroyCampaigns, getCampaigns } from "../../../_services/campaign";
+import {
+  destroyCampaigns,
+  getCampaigns,
+  updateCampaigns,
+} from "../../../_services/campaign";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -46,17 +52,19 @@ export function Campaigns() {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this resource?")) {
-      setLoading(true);
-      try {
-        await destroyCampaigns(id);
-        setDatas((prevData) => prevData.filter((data) => data.id !== id));
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+  const updateStatus = async (id, newStatus) => {
+    try {
+      await updateCampaigns(id, { status: newStatus, _method: "PUT" });
+
+      setDatas((prevDatas) =>
+        prevDatas.map((campaign) =>
+          campaign.id === id
+            ? { ...campaign, status: newStatus ?? campaign.status }
+            : campaign
+        )
+      );
+    } catch (error) {
+      console.error("Failed to update status", error);
     }
   };
 
@@ -94,8 +102,7 @@ export function Campaigns() {
                   "plant",
                   "target donation",
                   "collected donation",
-                  "isactive",
-                  "action",
+                  "status",
                 ].map((el) => (
                   <th
                     key={el}
@@ -123,7 +130,7 @@ export function Campaigns() {
                     plant,
                     target_donation,
                     collected_donation,
-                    isactive,
+                    status,
                   },
                   key
                 ) => {
@@ -177,21 +184,17 @@ export function Campaigns() {
                         </Typography>
                       </td>
                       <td className={className}>
-                        <Typography className="text-xs font-semibold text-blue-gray-600">
-                          {formatIsActive(isactive)}
-                        </Typography>
-                      </td>
-                      <td className={`${className} flex flex-row gap-2`}>
-                        <Typography as="a" href={`${page}/edit/${id}`}>
-                          <PencilSquareIcon {...icon} />
-                        </Typography>
-                        <Link to={`edit/${id}`}></Link>
-                        <Typography
-                          as="button"
-                          onClick={() => handleDelete(id)}
+                        <Select
+                          value={status}
+                          label="change status"
+                          onChange={(e) => updateStatus(id, e)}
+                          className="text-xs font-semibold text-blue-gray-600"
+                          disabled={status === "finished"}
                         >
-                          <TrashIcon {...icon} />
-                        </Typography>
+                          <Option value="active">Active</Option>
+                          <Option value="inactive">Inactive</Option>
+                          <Option value="finished">Finished</Option>
+                        </Select>
                       </td>
                     </tr>
                   );

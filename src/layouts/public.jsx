@@ -1,26 +1,28 @@
 import { Outlet } from "react-router-dom";
 import { NavbarSection } from "../components/Section/Navbar";
 import FooterSection from "../components/Section/Footer";
-import { decodeToken } from "../_formats";
+import { useDecodeToken } from "../_formats";
+import { useEffect, useState } from "react";
 
 export default function PublicLayout() {
+  const [userData, setUserData] = useState(null);
   const token = localStorage.getItem("accessToken");
-  let userData = null;
 
-  if (token) {
-    try {
-      userData = decodeToken(token);
-    } catch (error) {
-      console.error("Failed to decode token:", error);
-      userData = null;
+  const decodedData = useDecodeToken(token);
+
+  useEffect(() => {
+    if (decodedData.success) {
+      setUserData(decodedData.data);
+    } else {
+      console.error(decodedData.message);
     }
-  }
+  }, [decodedData]);
 
   return (
     <>
       <NavbarSection profile={userData} />
       <div className="container !mx-auto">
-        <Outlet />
+        <Outlet context={{ userData }} />
       </div>
       <FooterSection />
     </>

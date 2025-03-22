@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Navbar,
   Collapse,
@@ -31,9 +31,9 @@ const nestedMenuItems = [
 ];
 
 function NavListMenu() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [openNestedMenu, setopenNestedMenu] = React.useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openNestedMenu, setopenNestedMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const renderItems = nestedMenuItems.map(({ title }, key) => (
     <Link to={`tujuan/${title.toLowerCase()}`} key={key}>
       <MenuItem>{title.charAt(0).toUpperCase() + title.slice(1)}</MenuItem>
@@ -41,7 +41,7 @@ function NavListMenu() {
   ));
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Menu
         open={isMenuOpen}
         handler={setIsMenuOpen}
@@ -128,7 +128,7 @@ function NavListMenu() {
           </Menu>
         </Collapse>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
@@ -190,9 +190,9 @@ function NavList({profile}) {
 }
 
 export function NavbarSection({ profile }) {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
@@ -267,13 +267,27 @@ export function NavbarSection({ profile }) {
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           {profile ? (
-            <Link to="profile">
-              <Button size="md">Profile</Button>
-            </Link>
+            <>
+              <Link to="profile">
+                <Button size="md">Profile</Button>
+              </Link>
+              <Button
+                variant="text"
+                className="text-red-900"
+                onClick={handleLogout}
+              >
+                Log out
+              </Button>
+            </>
           ) : (
-            <Link to="login">
-              <Button size="md">Bergabung</Button>
-            </Link>
+            <>
+              <Link to="login">
+                <Button size="md">Login</Button>
+              </Link>
+              <Link to="register">
+                <Button size="md">Bergabung</Button>
+              </Link>
+            </>
           )}
         </div>
       </Collapse>

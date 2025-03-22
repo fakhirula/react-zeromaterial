@@ -1,6 +1,5 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import DonationSection from "../../../components/Section/Donation";
-import { useDecodeToken } from "../../../_formats";
 import { useEffect } from "react";
 
 export default function Donate() {

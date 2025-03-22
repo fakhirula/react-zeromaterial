@@ -8,28 +8,19 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { DataLoading, DataError } from "../../../components/Section/DataStatus";
 import { campaignStorage } from "../../../_api";
-import { formatIsActive, formatThousandNumber } from "../../../_formats";
+import { formatThousandNumber } from "../../../_formats";
 import {
-  destroyCampaigns,
   getCampaigns,
   updateCampaigns,
 } from "../../../_services/campaign";
 
-const icon = {
-  className: "w-5 h-5 text-inherit",
-};
-
 export function Campaigns() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const { pathname } = useLocation();
-  const [layout, page] = pathname.split("/").filter((el) => el !== "");
 
   const [datas, setDatas] = useState([]);
 

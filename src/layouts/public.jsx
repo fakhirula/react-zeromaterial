@@ -13,9 +13,10 @@ export default function PublicLayout() {
   useEffect(() => {
     if (decodedData.success) {
       setUserData(decodedData.data);
-    } else {
-      console.error(decodedData.message);
     }
+    // else {
+    //   console.error(decodedData.message);
+    // }
   }, [decodedData]);
 
   return (

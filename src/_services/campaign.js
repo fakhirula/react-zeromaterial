@@ -1,14 +1,14 @@
-import { API } from "../_api"
+import { API } from "../_api";
 
 export const getCampaigns = async () => {
   try {
-    const { data } = await API.get("/campaigns")
-    return data.data
+    const { data } = await API.get("/campaigns");
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const storeCampaigns = async (data) => {
   try {
@@ -16,23 +16,23 @@ export const storeCampaigns = async (data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const showCampaigns = async (id) => {
   try {
-    const { data } = await API.get(`/campaigns/${id}`)
-    return data.data
+    const { data } = await API.get(`/campaigns/${id}`);
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const updateCampaigns = async (id, data) => {
   try {
@@ -40,13 +40,13 @@ export const updateCampaigns = async (id, data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const destroyCampaigns = async (id) => {
   try {
@@ -54,9 +54,9 @@ export const destroyCampaigns = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
+    });
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};

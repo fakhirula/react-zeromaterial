@@ -34,7 +34,6 @@ export default function DonationSection({ campaignId, profile }) {
     quotes: "",
   });
 
-  // State to track selected buttons
   const [selectedDonationAmount, setSelectedDonationAmount] = useState(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
   const [selectedDonationType, setSelectedDonationType] = useState(null);
@@ -118,7 +117,7 @@ export default function DonationSection({ campaignId, profile }) {
   }
 
   return (
-    <section className="mx-auto py-8 lg:pb-24 lg:pt-20">
+    <section className="py-8 mx-auto lg:pb-24 lg:pt-20">
       <form onSubmit={handleSubmit}>
         <div className="mx-auto text-center">
           <Typography
@@ -136,8 +135,8 @@ export default function DonationSection({ campaignId, profile }) {
             Kebaikanmu, harapan mereka
           </Typography>
 
-          <div className="grid grid-cols-1 gap-x-12 gap-y-6 lg:grid-cols-2 items-start">
-            <div className="mx-auto flex flex-col gap-8 lg:max-w-sm">
+          <div className="grid items-start grid-cols-1 gap-x-12 gap-y-6 lg:grid-cols-2">
+            <div className="flex flex-col gap-8 mx-auto lg:max-w-sm">
               <div className="grid gap-3">
                 <Typography variant="lead" className="text-left !font-semibold">
                   Nominal

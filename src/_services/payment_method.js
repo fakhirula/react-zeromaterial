@@ -1,4 +1,4 @@
-import { API } from "../_api"
+import { API } from "../_api";
 
 export const getPaymentMethods = async () => {
   try {
@@ -6,13 +6,13 @@ export const getPaymentMethods = async () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return data.data
+    });
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const storePaymentMethods = async (data) => {
   try {
@@ -20,13 +20,13 @@ export const storePaymentMethods = async (data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const showPaymentMethods = async (id) => {
   try {
@@ -34,13 +34,13 @@ export const showPaymentMethods = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return data.data
+    });
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const updatePaymentMethods = async (id, data) => {
   try {
@@ -48,13 +48,13 @@ export const updatePaymentMethods = async (id, data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const destroyPaymentMethods = async (id) => {
   try {
@@ -62,9 +62,9 @@ export const destroyPaymentMethods = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
+    });
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};

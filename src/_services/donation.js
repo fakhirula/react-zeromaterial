@@ -1,14 +1,14 @@
-import { API } from "../_api"
+import { API } from "../_api";
 
 export const getDonations = async () => {
   try {
-    const { data } = await API.get("donations")
-    return data.data
+    const { data } = await API.get("donations");
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const storeDonations = async (data) => {
   try {
@@ -16,23 +16,23 @@ export const storeDonations = async (data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const showDonations = async (id) => {
   try {
-    const { data } = await API.get(`/donations/${id}`)
-    return data.data
+    const { data } = await API.get(`/donations/${id}`);
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const updateDonations = async (id, data) => {
   try {
@@ -40,13 +40,13 @@ export const updateDonations = async (id, data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const destroyDonations = async (id) => {
   try {
@@ -54,9 +54,9 @@ export const destroyDonations = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
+    });
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};

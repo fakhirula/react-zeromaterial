@@ -1,4 +1,4 @@
-import { API } from "../_api"
+import { API } from "../_api";
 
 export const getDonationTypes = async () => {
   try {
@@ -6,13 +6,13 @@ export const getDonationTypes = async () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return data.data
+    });
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const storeDonationTypes = async (data) => {
   try {
@@ -20,13 +20,13 @@ export const storeDonationTypes = async (data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const showDonationTypes = async (id) => {
   try {
@@ -34,13 +34,13 @@ export const showDonationTypes = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return data.data
+    });
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const updateDonationTypes = async (id, data) => {
   try {
@@ -48,13 +48,13 @@ export const updateDonationTypes = async (id, data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const destroyDonationTypes = async (id) => {
   try {
@@ -62,9 +62,9 @@ export const destroyDonationTypes = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
+    });
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};

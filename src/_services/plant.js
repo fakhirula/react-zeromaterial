@@ -1,14 +1,14 @@
-import { API } from "../_api"
+import { API } from "../_api";
 
 export const getPlants = async () => {
   try {
-    const { data } = await API.get("plants")
-    return data.data
+    const { data } = await API.get("plants");
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const storePlants = async (data) => {
   try {
@@ -16,23 +16,23 @@ export const storePlants = async (data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const showPlants = async (id) => {
   try {
-    const { data } = await API.get(`/plants/${id}`)
-    return data.data
+    const { data } = await API.get(`/plants/${id}`);
+    return data.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const updatePlants = async (id, data) => {
   try {
@@ -40,13 +40,13 @@ export const updatePlants = async (id, data) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
-    return response.data
+    });
+    return response.data;
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
 export const destroyPlants = async (id) => {
   try {
@@ -54,9 +54,9 @@ export const destroyPlants = async (id) => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    })
+    });
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};

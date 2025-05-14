@@ -16,6 +16,7 @@ export default function PublicLayout() {
     }
     else {
       console.error(decodedData.message);
+      localStorage.removeItem("accessToken");
     }
   }, [decodedData]);
 

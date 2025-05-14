@@ -41,11 +41,11 @@ export default function Record() {
       try {
         const allDonations = await getDonations();
         const filteredDonations = allDonations.filter(
-          (donation) => donation.user_id === userData.id
+          (donation) => donation.user_id === userData?.id
         );
         setListData(filteredDonations);
       } catch (error) {
-        setErrors(error.response.data.errors || {});
+        setErrors(error.response?.data?.errors || {});
         console.error(error);
       }
     };
@@ -56,11 +56,11 @@ export default function Record() {
   const getStatusIcon = (status) => {
     switch (status) {
       case "pending":
-        return <ClockIcon className="h-4 w-4 text-yellow-500" />;
+        return <ClockIcon className="w-4 h-4 text-yellow-500" />;
       case "failed":
-        return <XCircleIcon className="h-4 w-4 text-red-500" />;
+        return <XCircleIcon className="w-4 h-4 text-red-500" />;
       case "confirmed":
-        return <CheckBadgeIcon className="h-4 w-4 text-teal-500" />;
+        return <CheckBadgeIcon className="w-4 h-4 text-teal-500" />;
       default:
         return null;
     }
@@ -118,9 +118,9 @@ export default function Record() {
               <Card
                 shadow={false}
                 key={key}
-                className="rounded-lg border border-gray-300 p-4"
+                className="p-4 border border-gray-300 rounded-lg"
               >
-                <div className="mb-4 flex items-start justify-between">
+                <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="border border-gray-200 rounded-lg">
                       <Avatar
@@ -207,7 +207,7 @@ export default function Record() {
           ) : (
             <Card
               shadow={false}
-              className="rounded-lg border border-gray-300 p-4"
+              className="p-4 border border-gray-300 rounded-lg"
             >
               <Typography
                 variant="small"

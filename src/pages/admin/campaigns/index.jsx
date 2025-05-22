@@ -68,12 +68,12 @@ export function Campaigns() {
   }
 
   return (
-    <div className="mt-12 mb-8 flex flex-col gap-12">
+    <div className="flex flex-col gap-12 mt-12 mb-8">
       <Card>
         <CardHeader
           variant="gradient"
           color="gray"
-          className="capitalize mb-8 p-6"
+          className="p-6 mb-8 capitalize"
         >
           <Link to={`create`}>
             <Button color="teal" className="rounded-md">
@@ -81,7 +81,7 @@ export function Campaigns() {
             </Button>
           </Link>
         </CardHeader>
-        <CardBody className="overflow-x-scroll overflow-hidden px-0 pt-0 pb-2">
+        <CardBody className="px-0 pt-0 pb-2 overflow-hidden overflow-x-scroll">
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
@@ -97,7 +97,7 @@ export function Campaigns() {
                 ].map((el) => (
                   <th
                     key={el}
-                    className="border-b border-blue-gray-50 py-3 px-5 text-left"
+                    className="px-5 py-3 text-left border-b border-blue-gray-50"
                   >
                     <Typography
                       variant="small"
@@ -111,20 +111,7 @@ export function Campaigns() {
             </thead>
             <tbody>
               {datas.map(
-                (
-                  {
-                    id,
-                    title,
-                    image,
-                    location,
-                    user,
-                    plant,
-                    target_donation,
-                    collected_donation,
-                    status,
-                  },
-                  key
-                ) => {
+                ({id, title, image, location, user, plant, target_donation, collected_donation, status}, key) => {
                   const className = `py-3 px-5 ${
                     key === datas.length - 1
                       ? ""
@@ -137,7 +124,7 @@ export function Campaigns() {
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="capitalize font-semibold"
+                          className="font-semibold capitalize"
                         >
                           {title}
                         </Typography>
